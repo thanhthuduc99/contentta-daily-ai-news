@@ -1,0 +1,48 @@
+<!--
+  PATTERN: youtube-outro (OUTRO)  ·  face: HIDDEN (full-canvas, phủ toàn màn)
+  KEYWORDS: full-canvas Deep Space · YouTube play icon · "XEM CHI TIẾT Ở KÊNH YOUTUBE" · handle "Channel: ..."
+  DÙNG KHI: user nói "edit video ngắn giới thiệu youtube" → CHÈN MẶC ĐỊNH ~3s ở cuối (sau khi voice/face kết thúc).
+  CÁCH GẮN: scene track 2 ở cuối; extend ambient/music/grain phủ thêm 3s; face/captions giữ độ dài cũ.
+           z-index:8 phủ face. Handle mặc định "Channel: Thành Vũ Đức" (KHÔNG phải Contentta).
+-->
+<template id="youtube-outro-template">
+  <div data-composition-id="youtube-outro" data-start="0" data-width="1080" data-height="1920" data-duration="3.0">
+    <div class="yt-bg" id="ytbg"></div>
+    <div class="yt-orbit o1"></div><div class="yt-orbit o2"></div>
+    <div class="yt-wrap">
+      <div class="yt-icon" id="yticon"><svg viewBox="0 0 48 34" width="120" height="85"><rect x="1" y="1" width="46" height="32" rx="9" fill="#E10E1F"/><polygon points="19,9 19,25 33,17" fill="#FAF7F5"/></svg></div>
+      <div class="yt-head" id="ythead">XEM CHI TIẾT<br/><span class="accent">Ở KÊNH YOUTUBE</span></div>
+      <div class="yt-handle" id="ythandle"><span class="lbl">Channel:</span> <b>Thành Vũ Đức</b></div>
+    </div>
+    <style>
+      [data-composition-id="youtube-outro"]{position:absolute;inset:0;font-family:"Plus Jakarta Sans",sans-serif;z-index:8}
+      [data-composition-id="youtube-outro"] .yt-bg{position:absolute;inset:0;opacity:0;background:radial-gradient(ellipse 60% 45% at 50% 42%,rgba(225,14,31,0.20),rgba(90,4,16,0.12) 40%,transparent 72%),radial-gradient(ellipse 80% 60% at 50% 45%,#160812,#0c0510 55%,#070409 90%)}
+      @keyframes ytspin{to{transform:rotate(360deg)}} @keyframes ytspinR{to{transform:rotate(-360deg)}}
+      [data-composition-id="youtube-outro"] .yt-orbit{position:absolute;top:760px;left:50%;border-radius:50%;transform-origin:center;opacity:0}
+      [data-composition-id="youtube-outro"] .o1{width:1100px;height:1100px;margin:-550px 0 0 -550px;border:1.5px solid rgba(225,14,31,0.30);animation:ytspin 28s linear infinite}
+      [data-composition-id="youtube-outro"] .o2{width:760px;height:760px;margin:-380px 0 0 -380px;border:1px solid rgba(250,247,245,0.12);animation:ytspinR 20s linear infinite}
+      [data-composition-id="youtube-outro"] .yt-wrap{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:42px}
+      [data-composition-id="youtube-outro"] .yt-icon{opacity:0;transform:scale(0.5)}
+      [data-composition-id="youtube-outro"] .yt-icon svg{filter:drop-shadow(0 0 40px rgba(225,14,31,0.6))}
+      [data-composition-id="youtube-outro"] .yt-head{text-align:center;font-family:"Be Vietnam Pro",sans-serif;font-weight:800;font-size:104px;letter-spacing:-0.02em;line-height:1.14;color:#FAF7F5;text-shadow:0 4px 0 #070409,0 0 48px rgba(225,14,31,0.35);opacity:0;transform:translateY(40px)}
+      [data-composition-id="youtube-outro"] .yt-head .accent{color:#E10E1F}
+      [data-composition-id="youtube-outro"] .yt-handle{font-family:"Be Vietnam Pro",sans-serif;font-weight:600;font-size:36px;letter-spacing:0.03em;color:#A89BA1;opacity:0}
+      [data-composition-id="youtube-outro"] .yt-handle b{color:#FAF7F5;font-weight:700}
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      (function(){
+        const tl=gsap.timeline({paused:true});
+        const sc='[data-composition-id="youtube-outro"] ';
+        tl.to(sc+'#ytbg',{opacity:1,duration:0.35,ease:'power2.out'},0)
+          .to(sc+'.yt-orbit',{opacity:1,duration:0.5,ease:'power2.out'},0.1)
+          .to(sc+'#yticon',{opacity:1,scale:1,duration:0.45,ease:'back.out(1.8)'},0.25)
+          .to(sc+'#ythead',{opacity:1,y:0,duration:0.45,ease:'power3.out'},0.5)
+          .to(sc+'#ythandle',{opacity:1,duration:0.35,ease:'power2.out'},0.85);
+        tl.set({},{},3.0);
+        window.__timelines=window.__timelines||{};
+        window.__timelines["youtube-outro"]=tl;
+      })();
+    </script>
+  </div>
+</template>

@@ -1,0 +1,158 @@
+<template id="scene2-demo-template">
+  <div data-composition-id="scene2-demo" data-start="0" data-width="1080" data-height="1920" data-duration="9.7">
+
+    <div class="s2-panel">
+      <div class="s2-whip">
+        <div class="s2-heading" id="s2-heading">
+          <span class="s2-heading-dot"></span>
+          <span class="s2-heading-text">FOLDER SYSTEM</span>
+        </div>
+
+        <div class="s2-stack">
+          <!-- Card 1: Templates -->
+          <div class="s2-card" id="s2-c1">
+            <div class="s2-card-icon">
+              <svg viewBox="0 0 64 64">
+                <rect x="8" y="8" width="48" height="48" rx="8" fill="none" stroke="#FAF7F5" stroke-width="3.5"/>
+                <rect x="16" y="16" width="14" height="14" rx="3" fill="rgba(250,247,245,0.5)"/>
+                <rect x="34" y="16" width="14" height="14" rx="3" fill="rgba(250,247,245,0.3)"/>
+                <rect x="16" y="34" width="14" height="14" rx="3" fill="rgba(250,247,245,0.3)"/>
+                <rect x="34" y="34" width="14" height="14" rx="3" fill="rgba(250,247,245,0.2)"/>
+              </svg>
+            </div>
+            <div class="s2-card-body">
+              <div class="s2-card-label">Templates</div>
+              <div class="s2-card-sub">Workflow mẫu sẵn</div>
+            </div>
+            <div class="s2-check" id="s2-chk1">
+              <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="#FAF7F5"/><path d="M14 25 L21 32 L34 17" fill="none" stroke="#070409" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="s2-underline" id="s2-ul1"></div>
+          </div>
+
+          <!-- Card 2: Khóa học -->
+          <div class="s2-card" id="s2-c2">
+            <div class="s2-card-icon">
+              <svg viewBox="0 0 64 64">
+                <path d="M8 16 L32 8 L56 16 L56 44 L32 52 L8 44 Z" fill="none" stroke="#FAF7F5" stroke-width="3.5" stroke-linejoin="round"/>
+                <path d="M32 8 L32 52" fill="none" stroke="#FAF7F5" stroke-width="2.5"/>
+                <path d="M8 16 L32 24 L56 16" fill="none" stroke="#FAF7F5" stroke-width="2.5" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="s2-card-body">
+              <div class="s2-card-label">Khóa học</div>
+              <div class="s2-card-sub">Bài giảng AI Automation</div>
+            </div>
+            <div class="s2-check" id="s2-chk2">
+              <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="#FAF7F5"/><path d="M14 25 L21 32 L34 17" fill="none" stroke="#070409" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="s2-underline" id="s2-ul2"></div>
+          </div>
+
+          <!-- Card 3: Testing (hero) -->
+          <div class="s2-card s2-card-hero" id="s2-c3">
+            <div class="s2-card-icon s2-card-icon-hero">
+              <svg viewBox="0 0 64 64">
+                <path d="M22 8 L22 24 L10 52 Q8 56 12 56 L52 56 Q56 56 54 52 L42 24 L42 8" fill="none" stroke="#E10E1F" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
+                <line x1="18" y1="8" x2="46" y2="8" stroke="#E10E1F" stroke-width="3.5" stroke-linecap="round"/>
+                <circle cx="28" cy="40" r="3" fill="#E10E1F"/>
+                <circle cx="38" cy="36" r="2.5" fill="#E10E1F" opacity="0.7"/>
+                <circle cx="32" cy="46" r="2" fill="#E10E1F" opacity="0.5"/>
+              </svg>
+            </div>
+            <div class="s2-card-body">
+              <div class="s2-card-label s2-card-label-hero">Testing</div>
+              <div class="s2-card-sub">Workflows đang thử nghiệm</div>
+            </div>
+            <div class="s2-check s2-check-hero" id="s2-chk3">
+              <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="#E10E1F"/><path d="M14 25 L21 32 L34 17" fill="none" stroke="#FAF7F5" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="s2-underline s2-underline-hero" id="s2-ul3"></div>
+          </div>
+        </div>
+
+        <!-- Sweep bar -->
+        <div class="s2-sweep" id="s2-sweep"></div>
+      </div>
+    </div>
+
+    <style>
+      [data-composition-id="scene2-demo"] { position:absolute; inset:0 }
+      [data-composition-id="scene2-demo"] .s2-panel { position:absolute; top:0; left:0; width:1080px; height:1136px; overflow:hidden }
+      [data-composition-id="scene2-demo"] .s2-whip { position:absolute; inset:0; will-change:transform,filter }
+      [data-composition-id="scene2-demo"] .s2-heading {
+        position:absolute; top:80px; left:50%; transform:translateX(-50%);
+        display:flex; align-items:center; gap:12px; padding:10px 22px;
+        border:1.5px solid rgba(225,14,31,0.55); background:rgba(7,4,9,0.7); border-radius:8px;
+        font-family:"Plus Jakarta Sans",sans-serif; font-weight:600; font-size:22px; letter-spacing:0.22em; color:#FAF7F5; opacity:0;
+      }
+      [data-composition-id="scene2-demo"] .s2-heading-dot { width:10px; height:10px; border-radius:50%; background:#E10E1F; box-shadow:0 0 12px rgba(225,14,31,0.85) }
+      [data-composition-id="scene2-demo"] .s2-stack { position:absolute; top:200px; left:100px; right:100px; display:flex; flex-direction:column; gap:28px }
+      [data-composition-id="scene2-demo"] .s2-card {
+        position:relative; width:880px; height:240px;
+        background:rgba(13,6,12,0.85); border:2px solid rgba(250,247,245,0.32); border-radius:22px;
+        padding:28px 32px; display:flex; align-items:center; gap:22px;
+        box-shadow:0 10px 32px rgba(0,0,0,0.55); overflow:hidden;
+        opacity:0; transform:translateX(-100px) scale(0.96);
+      }
+      [data-composition-id="scene2-demo"] .s2-card-hero { border-color:#E10E1F; background:rgba(35,4,8,0.9); box-shadow:0 0 40px rgba(225,14,31,0.3),0 12px 36px rgba(0,0,0,0.6) }
+      [data-composition-id="scene2-demo"] .s2-card-icon { width:100px; height:100px; flex-shrink:0 }
+      [data-composition-id="scene2-demo"] .s2-card-icon svg { width:100%; height:100% }
+      [data-composition-id="scene2-demo"] .s2-card-body { flex:1 }
+      [data-composition-id="scene2-demo"] .s2-card-label { font-family:"Be Vietnam Pro",sans-serif; font-weight:700; font-size:46px; color:#FAF7F5; text-shadow:0 3px 0 #070409 }
+      [data-composition-id="scene2-demo"] .s2-card-label-hero { color:#FAF7F5; text-shadow:0 3px 0 #070409,0 0 18px rgba(225,14,31,0.45) }
+      [data-composition-id="scene2-demo"] .s2-card-sub { font-family:"Plus Jakarta Sans",sans-serif; font-weight:500; font-size:24px; color:#A89BA1; margin-top:4px }
+      [data-composition-id="scene2-demo"] .s2-check { position:absolute; top:18px; right:18px; width:44px; height:44px; opacity:0; transform:scale(0) rotate(-120deg) }
+      [data-composition-id="scene2-demo"] .s2-check svg { width:100%; height:100%; filter:drop-shadow(0 0 10px rgba(250,247,245,0.4)) }
+      [data-composition-id="scene2-demo"] .s2-check-hero svg circle { filter:drop-shadow(0 0 16px rgba(225,14,31,0.8)) }
+      [data-composition-id="scene2-demo"] .s2-underline { position:absolute; left:32px; bottom:16px; height:3px; width:calc(100% - 64px); background:linear-gradient(90deg,rgba(250,247,245,0.8) 0%,rgba(250,247,245,0.15) 100%); box-shadow:0 0 10px rgba(250,247,245,0.3); transform:scaleX(0); transform-origin:left center }
+      [data-composition-id="scene2-demo"] .s2-underline-hero { background:linear-gradient(90deg,rgba(225,14,31,0.95) 0%,rgba(225,14,31,0.25) 100%); box-shadow:0 0 14px rgba(225,14,31,0.6) }
+      [data-composition-id="scene2-demo"] .s2-sweep { position:absolute; top:0; bottom:0; left:0; width:14px; background:linear-gradient(180deg,transparent 0%,rgba(225,14,31,0.85) 50%,transparent 100%); box-shadow:0 0 36px rgba(225,14,31,0.7); opacity:0 }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      (function(){
+        const tl = gsap.timeline({ paused: true });
+        const scope = '[data-composition-id="scene2-demo"] ';
+        const DUR = 9.7;
+
+        // Entry whip
+        gsap.set(scope + ".s2-whip", { y:120, filter:"blur(24px)", opacity:0.35 });
+        tl.to(scope + ".s2-whip", { y:0, filter:"blur(0px)", opacity:1, duration:0.6, ease:"power3.out" }, 0);
+
+        tl.to(scope + "#s2-heading", { opacity:1, duration:0.28, ease:"power2.out" }, 0.06);
+
+        // Sweep
+        tl.fromTo(scope + "#s2-sweep", { x:-40, opacity:0 }, { x:1080, opacity:0.9, duration:0.9, ease:"power2.inOut" }, 0.14);
+        tl.to(scope + "#s2-sweep", { opacity:0, duration:0.2, ease:"power1.in" }, 1.04);
+
+        // Card 1 "Templates" — synced ~0.8s (transcript seg1 start "folders mình tạo")
+        tl.to(scope + "#s2-c1", { opacity:1, x:0, scale:1, duration:0.42, ease:"back.out(1.5)" }, 0.7);
+        tl.to(scope + "#s2-ul1", { scaleX:1, duration:0.32, ease:"power3.out" }, 1.1);
+        tl.to(scope + "#s2-chk1", { opacity:1, scale:1, rotation:0, duration:0.3, ease:"back.out(2.6)" }, 1.3);
+
+        // Card 2 "Khóa học" — synced ~5.7s (transcript "template workflow khóa học")
+        tl.to(scope + "#s2-c2", { opacity:1, x:0, scale:1, duration:0.42, ease:"back.out(1.5)" }, 5.2);
+        tl.to(scope + "#s2-ul2", { scaleX:1, duration:0.32, ease:"power3.out" }, 5.6);
+        tl.to(scope + "#s2-chk2", { opacity:1, scale:1, rotation:0, duration:0.3, ease:"back.out(2.6)" }, 5.8);
+
+        // Card 3 "Testing" (hero) — synced ~7.4s (transcript "workflows đang test")
+        tl.to(scope + "#s2-c3", { opacity:1, x:0, scale:1, duration:0.48, ease:"back.out(1.8)" }, 7.0);
+        tl.to(scope + "#s2-c3", { x:6, duration:0.05, yoyo:true, repeat:3, ease:"power1.inOut" }, 7.5);
+        tl.to(scope + "#s2-ul3", { scaleX:1, duration:0.34, ease:"power3.out" }, 7.48);
+        tl.to(scope + "#s2-chk3", { opacity:1, scale:1, rotation:0, duration:0.34, ease:"back.out(2.8)" }, 7.68);
+
+        // Hero glow pulse
+        tl.to(scope + "#s2-c3", { boxShadow:"0 0 80px rgba(225,14,31,0.55),0 12px 36px rgba(0,0,0,0.6)", duration:0.5, yoyo:true, repeat:1, ease:"sine.inOut" }, 8.1);
+
+        // Exit
+        tl.to(scope + ".s2-whip", { y:-120, filter:"blur(24px)", opacity:0, duration:0.3, ease:"power2.in" }, DUR - 0.3);
+
+        tl.set({}, {}, DUR);
+        window.__timelines = window.__timelines || {};
+        window.__timelines["scene2-demo"] = tl;
+      })();
+    </script>
+  </div>
+</template>

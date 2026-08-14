@@ -1,0 +1,58 @@
+<template id="s5-change4-template">
+  <div data-composition-id="s5-change4" data-start="0" data-width="1080" data-height="1920" data-duration="7.30">
+    <div class="cg-wrap">
+      <div class="cg-head">
+        <div class="cg-badge" id="cg5badge">4</div>
+        <div class="cg-meta"><div class="cg-label" id="cg5label">THAY ĐỔI 4</div><div class="cg-title" id="cg5title">DYNAMIC WORKFLOWS</div></div>
+      </div>
+      <div class="cg-div" id="cg5div"></div>
+
+      <div class="fl-parent" id="cg5par">1 TASK CỰC LỚN</div>
+      <svg class="fl-svg" viewBox="0 0 1080 240" id="cg5svg">
+        <path d="M540 10 V70 M540 70 H180 V150 M540 70 H540 V150 M540 70 H900 V150" fill="none" stroke="#E10E1F" stroke-width="3" opacity="0.7" stroke-dasharray="1400" stroke-dashoffset="1400" id="cg5lines"/>
+      </svg>
+      <div class="fl-kids">
+        <div class="fl-kid" id="cg5k1">phần 1</div>
+        <div class="fl-kid" id="cg5k2">phần 2</div>
+        <div class="fl-kid" id="cg5k3">phần 3</div>
+      </div>
+      <div class="cg-tag" id="cg5tag">Tự chia nhỏ &amp; xử lý song song</div>
+    </div>
+    <style>
+      [data-composition-id="s5-change4"]{position:absolute;inset:0;font-family:"Plus Jakarta Sans",sans-serif}
+      [data-composition-id="s5-change4"] .cg-wrap{position:absolute;inset:0;will-change:transform,filter}
+      [data-composition-id="s5-change4"] .cg-head{position:absolute;top:300px;left:100px;right:100px;display:flex;align-items:center;gap:28px}
+      [data-composition-id="s5-change4"] .cg-badge{width:120px;height:120px;flex:0 0 auto;border-radius:50%;border:2.5px solid rgba(225,14,31,0.7);background:rgba(40,6,14,0.6);display:flex;align-items:center;justify-content:center;font-family:"Be Vietnam Pro",sans-serif;font-weight:800;font-size:64px;color:#E10E1F;box-shadow:0 0 36px rgba(225,14,31,0.3);opacity:0;transform:scale(0.5)}
+      [data-composition-id="s5-change4"] .cg-label{font-family:"JetBrains Mono",monospace;font-size:26px;letter-spacing:0.3em;color:#A89BA1;text-transform:uppercase;opacity:0}
+      [data-composition-id="s5-change4"] .cg-title{font-family:"Be Vietnam Pro",sans-serif;font-weight:700;font-size:52px;letter-spacing:-0.02em;color:#FAF7F5;margin-top:6px;opacity:0;white-space:nowrap}
+      [data-composition-id="s5-change4"] .cg-div{position:absolute;top:470px;left:100px;right:100px;height:1px;background:#E10E1F;transform-origin:left;transform:scaleX(0)}
+      [data-composition-id="s5-change4"] .fl-parent{position:absolute;top:560px;left:50%;transform:translateX(-50%) scale(0.8);padding:26px 48px;border-radius:18px;border:1.5px solid rgba(225,14,31,0.7);background:rgba(60,6,16,0.55);font-family:"Be Vietnam Pro",sans-serif;font-weight:800;font-size:46px;color:#FAF7F5;box-shadow:0 0 40px rgba(225,14,31,0.25);opacity:0;white-space:nowrap}
+      [data-composition-id="s5-change4"] .fl-svg{position:absolute;top:660px;left:0;width:1080px;height:240px}
+      [data-composition-id="s5-change4"] .fl-kids{position:absolute;top:790px;left:0;width:1080px;display:flex;justify-content:center;gap:60px}
+      [data-composition-id="s5-change4"] .fl-kid{width:200px;text-align:center;padding:22px 0;border-radius:16px;border:1.5px solid rgba(250,247,245,0.18);background:rgba(20,9,17,0.75);font-family:"Be Vietnam Pro",sans-serif;font-weight:700;font-size:34px;color:#FAF7F5;opacity:0;transform:translateY(24px)}
+      [data-composition-id="s5-change4"] .cg-tag{position:absolute;top:960px;left:0;right:0;text-align:center;font-family:"Be Vietnam Pro",sans-serif;font-weight:700;font-size:46px;color:#E10E1F;opacity:0;transform:translateY(18px)}
+    </style>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <script>
+      (function(){
+        const tl=gsap.timeline({paused:true});
+        const sc='[data-composition-id="s5-change4"] ';
+        const DUR=8.30;
+        tl.to(sc+'#cg5badge',{opacity:1,scale:1,duration:0.42,ease:'back.out(1.6)'},0.1)
+          .to(sc+'#cg5label',{opacity:1,duration:0.28,ease:'power2.out'},0.32)
+          // "Dynamic Workflows" 55.9 → local 3.0
+          .to(sc+'#cg5title',{opacity:1,duration:0.34,ease:'power2.out'},2.7)
+          .to(sc+'#cg5div',{scaleX:1,duration:0.5,ease:'power3.out'},2.9)
+          .to(sc+'#cg5par',{opacity:1,scale:1,duration:0.4,ease:'back.out(1.6)'},3.3)
+          .to(sc+'#cg5lines',{strokeDashoffset:0,duration:0.7,ease:'power2.out'},3.8)
+          .to([sc+'#cg5k1',sc+'#cg5k2',sc+'#cg5k3'],{opacity:1,y:0,duration:0.36,ease:'back.out(1.6)',stagger:0.16},4.5)
+          // "chia nhỏ ... task cực kỳ lớn" 58.6–60.7 → local 5.7–7.8
+          .to(sc+'#cg5tag',{opacity:1,y:0,duration:0.4,ease:'back.out(1.5)'},5.7)
+          .to([sc+'#cg5k1',sc+'#cg5k2',sc+'#cg5k3'],{borderColor:'rgba(225,14,31,0.7)',duration:0.3,stagger:0.1,ease:'power2.out'},6.3);
+        tl.set({},{},DUR);
+        window.__timelines=window.__timelines||{};
+        window.__timelines["s5-change4"]=tl;
+      })();
+    </script>
+  </div>
+</template>

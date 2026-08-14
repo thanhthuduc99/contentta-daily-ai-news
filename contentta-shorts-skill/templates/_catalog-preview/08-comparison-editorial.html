@@ -1,0 +1,61 @@
+<!doctype html>
+<!--
+  08 — SO SÁNH TRƯỚC/SAU (editorial) | use-case: đối chiếu 2 trạng thái
+  KEYWORDS: two-row before/after · strike-through old · accent new value · vs divider
+            · serif numbers · karaoke caption · whip exit | 1080×1920 dọc
+-->
+<html lang="vi"><head><meta charset="UTF-8"/>
+<title>08 · So Sánh Editorial</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Be+Vietnam+Pro:wght@500;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"/>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:100vw;height:100vh;overflow:hidden;background:#000;color:#FAF7F5;display:flex;align-items:center;justify-content:center;font-family:"Be Vietnam Pro",sans-serif}
+  .stage{width:1080px;height:1920px;position:relative;overflow:hidden;transform-origin:center;background:#070409;flex:0 0 auto}
+  .halo{position:absolute;inset:0;background:radial-gradient(ellipse 60% 40% at 50% 30%,rgba(90,4,16,0.28),transparent 62%)}
+  .tag{position:absolute;top:300px;left:0;right:0;text-align:center;font-family:"JetBrains Mono",monospace;font-size:20px;letter-spacing:0.4em;color:#A89BA1;text-transform:uppercase;opacity:0}
+  .tag .a{color:#E10E1F}
+  .row{position:absolute;left:110px;right:110px;display:flex;align-items:baseline;justify-content:space-between;opacity:0}
+  .r1{top:440px}.r2{top:720px}
+  .lbl{font-family:"JetBrains Mono",monospace;font-size:30px;letter-spacing:0.2em;color:#A89BA1;text-transform:uppercase}
+  .val{font-family:"Playfair Display",serif;font-style:italic;font-weight:700;font-size:150px;line-height:0.9}
+  .r1 .val{color:#A89BA1;position:relative}
+  .strike{position:absolute;top:52%;left:-10px;right:-10px;height:5px;background:#E10E1F;transform-origin:left;transform:scaleX(0)}
+  .r2 .val{color:#E10E1F;text-shadow:0 0 50px rgba(225,14,31,0.4)}
+  .vs{position:absolute;top:610px;left:50%;transform:translateX(-50%);font-family:"JetBrains Mono",monospace;font-size:30px;letter-spacing:0.3em;color:#FAF7F5;opacity:0}
+  .midline{position:absolute;top:660px;left:110px;right:110px;height:1px;background:rgba(250,247,245,0.2);transform-origin:center;transform:scaleX(0)}
+  .caption{position:absolute;bottom:300px;left:0;right:0;text-align:center;padding:0 70px;font-family:"Be Vietnam Pro",sans-serif;font-weight:800;font-size:50px;line-height:1.16;letter-spacing:-0.01em}
+  .caption .cw{display:inline-block;color:rgba(250,247,245,0.45);text-shadow:-2px -2px 0 #070409,2px -2px 0 #070409,-2px 2px 0 #070409,2px 2px 0 #070409,0 5px 12px rgba(0,0,0,0.6)}
+  .face{position:absolute;bottom:0;left:0;right:0;height:200px;background:linear-gradient(0deg,rgba(225,14,31,0.06),transparent);border-top:1px solid rgba(225,14,31,0.25)}
+  .face::after{content:"▮ VÙNG MẶT NGƯỜI";position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-size:15px;letter-spacing:0.4em;color:rgba(168,155,161,0.5)}
+</style></head><body>
+<div class="stage" id="stage">
+  <div class="halo"></div>
+  <div class="tag" id="tag">TRƯỚC <span class="a">/</span> SAU · CONTENTTA</div>
+  <div class="row r1" id="r1"><span class="lbl">Làm tay</span><span class="val">8 giờ<span class="strike" id="strike"></span></span></div>
+  <div class="vs" id="vs">CHUYỂN SANG AI</div>
+  <div class="midline" id="mid"></div>
+  <div class="row r2" id="r2"><span class="lbl">Dùng agent</span><span class="val">30 phút</span></div>
+  <div class="caption" id="cap"><span class="cw">Cùng</span> <span class="cw">một</span> <span class="cw">việc</span> <span class="cw">thời</span> <span class="cw">gian</span> <span class="cw">giảm</span> <span class="cw">mạnh</span></div>
+  <div class="face"></div>
+</div>
+<script>
+function fit(){document.getElementById('stage').style.transform='scale('+Math.min(innerWidth/1080,innerHeight/1920)+')'}
+addEventListener('resize',fit);fit();
+const cw=gsap.utils.toArray('#cap .cw');
+const tl=gsap.timeline({repeat:-1,repeatDelay:0.4});
+tl.to('#tag',{opacity:1,duration:0.26,ease:'power2.out'},0)
+  .to('#r1',{opacity:1,duration:0.34,ease:'power3.out'},0.20)
+  .to('#strike',{scaleX:1,duration:0.30,ease:'power3.out'},0.55)
+  .to('#vs',{opacity:1,duration:0.26,ease:'power2.out'},0.72)
+  .to('#mid',{scaleX:1,duration:0.34,ease:'power3.out'},0.72)
+  .to('#r2',{opacity:1,duration:0.38,ease:'back.out(1.4)'},0.90)
+  .to('#r2 .val',{x:6,duration:0.04,yoyo:true,repeat:3,ease:'power1.inOut'},1.28);
+cw.forEach((w,i)=>tl.to(w,{color:'#FAF7F5',duration:0.10,ease:'power2.out'},1.30+i*0.12));
+tl.to(['#r1','#r2','#vs','#tag'],{y:'-=55',opacity:0,filter:'blur(12px)',duration:0.26,ease:'power2.in'},2.7)
+  .to(['#cap','#mid'],{opacity:0,duration:0.22,ease:'power2.in'},2.75)
+  .set(['#r1','#r2'],{opacity:0,y:0,filter:'blur(0px)'},3.15)
+  .set('#strike',{scaleX:0},3.15).set('#vs',{opacity:0,y:0,filter:'blur(0px)'},3.15)
+  .set('#tag',{opacity:0,y:0,filter:'blur(0px)'},3.15).set('#mid',{scaleX:0,opacity:1},3.15)
+  .set('#cap',{opacity:1},3.15).set(cw,{color:'rgba(250,247,245,0.45)'},3.15);
+</script></body></html>

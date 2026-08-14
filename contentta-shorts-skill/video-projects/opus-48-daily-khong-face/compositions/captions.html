@@ -1,0 +1,109 @@
+<template id="captions-template">
+  <div data-composition-id="captions" data-start="0" data-width="1080" data-height="1920" data-duration="87.49">
+    <div class="cap-stage" id="cap-stage"></div>
+    <style>
+      [data-composition-id="captions"] { position:absolute; inset:0; pointer-events:none; }
+      [data-composition-id="captions"] .cap-stage { position:absolute; left:0; right:0; bottom:220px; height:0; pointer-events:none; }
+      [data-composition-id="captions"] .cap-line-wrap { position:absolute; bottom:0; left:0; right:0; display:flex; justify-content:center; padding:0 80px; opacity:0; visibility:hidden; }
+      [data-composition-id="captions"] .cap-line { display:inline-block; max-width:920px; padding:0 8px; text-align:center; font-family:"Be Vietnam Pro",sans-serif; font-weight:600; font-size:44px; line-height:1.22; letter-spacing:0.012em; color:rgba(250,247,245,0.55); text-shadow:-2px -2px 0 #070409,2px -2px 0 #070409,-2px 2px 0 #070409,2px 2px 0 #070409,0 0 6px rgba(0,0,0,0.55),0 4px 12px rgba(0,0,0,0.5); white-space:normal; }
+      [data-composition-id="captions"] .cap-word { display:inline-block; margin:0 4px; transform-origin:center center; will-change:color; }
+    </style>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <script>
+      (function () {
+        const SEGMENTS = [
+          { words: [{w:"Opus",s:0,e:0.84},{w:"4",s:0.84,e:1.2},{w:"8",s:1.2,e:1.66},{w:"vừa",s:1.66,e:1.9},{w:"chính",s:1.9,e:2.18}] },
+          { words: [{w:"thức",s:2.18,e:2.28},{w:"ra",s:2.28,e:2.54},{w:"mắt",s:2.54,e:2.68}] },
+          { words: [{w:"Nó",s:3.6,e:3.6},{w:"build",s:3.6,e:3.88},{w:"trên",s:3.88,e:4.1},{w:"bản",s:4.1,e:4.24},{w:"4",s:4.24,e:4.54}] },
+          { words: [{w:"7",s:4.54,e:5.14},{w:"phán",s:5.7,e:5.72},{w:"đoán",s:5.72,e:5.92},{w:"sắc",s:5.92,e:6.2},{w:"hơn",s:6.2,e:6.48}] },
+          { words: [{w:"và",s:6.48,e:6.9},{w:"tự",s:6.9,e:7.12},{w:"chủ",s:7.12,e:7.28},{w:"lâu",s:7.28,e:7.48},{w:"hơn",s:7.48,e:7.72}] },
+          { words: [{w:"Đây",s:8.78,e:8.78},{w:"là",s:8.78,e:8.98},{w:"5",s:8.98,e:9.22},{w:"thay",s:9.22,e:9.36},{w:"đổi",s:9.36,e:9.48}] },
+          { words: [{w:"lớn",s:9.48,e:9.74},{w:"nhất",s:9.74,e:9.94},{w:"bạn",s:9.94,e:10.3},{w:"cần",s:10.3,e:10.5},{w:"biết",s:10.5,e:10.7}] },
+          { words: [{w:"1",s:11.48,e:12},{w:"Giá",s:12.9,e:12.9},{w:"Token",s:12.9,e:13.22},{w:"y",s:13.22,e:13.6},{w:"hệt",s:13.6,e:13.74}] },
+          { words: [{w:"bản",s:13.74,e:13.94},{w:"4",s:13.94,e:14.22},{w:"7",s:14.22,e:14.64}] },
+          { words: [{w:"không",s:15.04,e:15.18},{w:"tăng",s:15.18,e:15.26},{w:"một",s:15.26,e:15.6},{w:"đồng",s:15.6,e:15.84}] },
+          { words: [{w:"Nhưng",s:16.42,e:16.6},{w:"rate",s:16.6,e:16.88},{w:"limit",s:16.88,e:17.22},{w:"trong",s:17.22,e:17.52},{w:"Claude",s:17.52,e:17.92}] },
+          { words: [{w:"Code",s:17.92,e:18.3},{w:"thì",s:18.3,e:18.52},{w:"được",s:18.52,e:18.68},{w:"nâng",s:18.68,e:18.8},{w:"lên",s:18.8,e:19.06}] },
+          { words: [{w:"để",s:19.06,e:19.66},{w:"theo",s:19.66,e:19.92},{w:"kịp",s:19.92,e:20.1},{w:"các",s:20.1,e:20.3},{w:"mức",s:20.3,e:20.46}] },
+          { words: [{w:"nỗ",s:20.46,e:20.64},{w:"lực",s:20.64,e:20.76},{w:"cao",s:20.76,e:21.04},{w:"hơn",s:21.04,e:21.5}] },
+          { words: [{w:"Mạnh",s:22.2,e:22.2},{w:"hơn",s:22.2,e:22.5},{w:"mà",s:22.5,e:22.92},{w:"không",s:22.92,e:23.16},{w:"đắt",s:23.16,e:23.28},{w:"hơn",s:23.28,e:23.5}] },
+          { words: [{w:"2",s:24.4,e:24.92},{w:"Nó",s:25.46,e:25.76},{w:"trung",s:25.76,e:25.98},{w:"thực",s:25.98,e:26.12},{w:"hơn",s:26.12,e:26.38}] },
+          { words: [{w:"hẳn",s:26.38,e:26.76},{w:"Bản",s:27.52,e:27.52},{w:"4",s:27.52,e:27.78},{w:"7",s:27.78,e:28.18},{w:"hay",s:28.18,e:28.46}] },
+          { words: [{w:"báo",s:28.46,e:28.66},{w:"đã",s:28.66,e:28.94},{w:"làm",s:28.94,e:29.16},{w:"xong",s:29.16,e:29.3},{w:"hết",s:29.3,e:29.62}] },
+          { words: [{w:"50",s:29.62,e:29.92},{w:"cái",s:29.92,e:30.18},{w:"những",s:30.76,e:30.88},{w:"thực",s:30.88,e:31.08},{w:"ra",s:31.08,e:31.3}] },
+          { words: [{w:"mới",s:31.3,e:31.52},{w:"được",s:31.52,e:31.68},{w:"15",s:31.68,e:32.02}] },
+          { words: [{w:"Bản",s:33.1,e:33.1},{w:"này",s:33.1,e:33.34},{w:"giảm",s:33.34,e:33.62},{w:"kiểu",s:33.62,e:33.8},{w:"nói",s:33.8,e:34.02}] },
+          { words: [{w:"dối",s:34.02,e:34.1},{w:"đó",s:34.1,e:34.46},{w:"gần",s:34.46,e:34.58},{w:"một",s:34.58,e:34.94},{w:"nửa",s:34.94,e:35.02}] },
+          { words: [{w:"3",s:36.16,e:36.26},{w:"Có",s:37.1,e:37.1},{w:"một",s:37.1,e:37.3},{w:"thanh",s:37.3,e:37.6},{w:"effort",s:37.6,e:38.16}] },
+          { words: [{w:"kéo",s:38.62,e:38.62},{w:"từ",s:38.62,e:38.94},{w:"Low",s:38.94,e:39.2}] },
+          { words: [{w:"Medium",s:40,e:40},{w:"High",s:40.58,e:40.7},{w:"lên",s:40.7,e:41.34},{w:"tới",s:41.34,e:41.68},{w:"XH",s:41.68,e:42.18}] },
+          { words: [{w:"Max",s:42.6,e:42.9},{w:"và",s:42.9,e:43.38},{w:"Ultra",s:43.38,e:43.92},{w:"Code",s:43.92,e:44.42}] },
+          { words: [{w:"Kéo",s:45.26,e:45.26},{w:"về",s:45.26,e:45.48},{w:"trái",s:45.48,e:45.68},{w:"thì",s:45.68,e:46.02},{w:"nhanh",s:46.02,e:46.16}] },
+          { words: [{w:"kéo",s:46.86,e:46.86},{w:"về",s:46.86,e:47.06},{w:"phải",s:47.06,e:47.28},{w:"thì",s:47.28,e:47.66},{w:"thông",s:47.66,e:47.72}] },
+          { words: [{w:"minh",s:47.72,e:47.88},{w:"hơn",s:47.88,e:48.1},{w:"nhưng",s:48.1,e:48.5},{w:"tốn",s:48.5,e:48.7},{w:"token",s:48.7,e:48.92}] },
+          { words: [{w:"cần",s:48.92,e:49.1},{w:"Khác",s:50.16,e:50.16},{w:"biệt",s:50.16,e:50.34},{w:"lớn",s:50.34,e:50.66},{w:"tới",s:50.66,e:50.84}] },
+          { words: [{w:"mức",s:50.84,e:50.98},{w:"như",s:50.98,e:51.36},{w:"đang",s:51.36,e:51.56},{w:"dùng",s:51.56,e:51.72},{w:"một",s:51.72,e:51.98},{w:"model",s:51.98,e:52.22},{w:"khác",s:52.22,e:52.48}] },
+          { words: [{w:"4",s:53.32,e:53.88},{w:"Claude",s:54.7,e:55.04},{w:"Code",s:55.04,e:55.32},{w:"có",s:55.32,e:55.62},{w:"thêm",s:55.62,e:55.88}] },
+          { words: [{w:"Dynamic",s:55.88,e:56.46},{w:"Workflows",s:56.46,e:57.12},{w:"cho",s:57.7,e:57.84},{w:"phép",s:57.84,e:57.98},{w:"nó",s:57.98,e:58.24}] },
+          { words: [{w:"tự",s:58.24,e:58.56},{w:"chia",s:58.56,e:58.76},{w:"nhỏ",s:58.76,e:59},{w:"và",s:59,e:59.4},{w:"xử",s:59.4,e:59.56}] },
+          { words: [{w:"lý",s:59.56,e:59.7},{w:"những",s:59.7,e:59.98},{w:"task",s:59.98,e:60.26},{w:"cực",s:60.26,e:60.6},{w:"kỳ",s:60.6,e:60.7},{w:"lớn",s:60.7,e:61.36}] },
+          { words: [{w:"5",s:61.64,e:62.2},{w:"Anthropic",s:62.84,e:63.4},{w:"hé lộ",s:63.4,e:63.96},{w:"Mythos",s:63.96,e:64.7}] },
+          { words: [{w:"một",s:65.3,e:65.4},{w:"dòng",s:65.4,e:65.52},{w:"model",s:65.52,e:65.9},{w:"còn",s:65.9,e:66.28},{w:"mạnh",s:66.28,e:66.4}] },
+          { words: [{w:"hơn",s:66.4,e:66.64},{w:"cả",s:66.64,e:66.84},{w:"Opus",s:66.84,e:67.2}] },
+          { words: [{w:"Hiện",s:68.14,e:68.14},{w:"chỉ",s:68.14,e:68.38},{w:"vài",s:68.38,e:68.72},{w:"tổ",s:68.72,e:68.78},{w:"chức",s:68.78,e:68.88}] },
+          { words: [{w:"được",s:68.88,e:69.18},{w:"dùng",s:69.18,e:69.28},{w:"cho",s:69.28,e:69.62},{w:"an",s:69.62,e:69.72},{w:"ninh",s:69.72,e:69.92}] },
+          { words: [{w:"mạng",s:69.92,e:70.16},{w:"chưa",s:70.68,e:70.72},{w:"mở",s:70.72,e:70.94},{w:"rộng",s:70.94,e:71.1},{w:"ra",s:71.1,e:71.34},{w:"công",s:71.34,e:71.5},{w:"chúng",s:71.5,e:71.7}] },
+          { words: [{w:"Còn",s:72.32,e:72.76},{w:"một",s:72.76,e:72.96},{w:"mẹo",s:72.96,e:73.18},{w:"nhỏ",s:73.18,e:73.44},{w:"dành",s:73.44,e:73.62}] },
+          { words: [{w:"cho",s:73.62,e:73.78},{w:"bạn",s:73.78,e:74.14},{w:"Hãy",s:74.76,e:74.76},{w:"bảo",s:74.76,e:74.92},{w:"nó",s:74.92,e:75.22}] },
+          { words: [{w:"phải",s:75.22,e:75.42},{w:"làm",s:75.42,e:75.6},{w:"gì",s:75.6,e:75.82}] },
+          { words: [{w:"đừng",s:76.46,e:76.46},{w:"chỉ",s:76.46,e:76.7},{w:"bảo",s:76.7,e:76.84},{w:"nó",s:76.84,e:77.14},{w:"đừng",s:77.14,e:77.3}] },
+          { words: [{w:"làm",s:77.3,e:77.54},{w:"gì",s:77.54,e:78.02},{w:"Và",s:78.44,e:78.62},{w:"luôn",s:78.62,e:78.84},{w:"cho",s:78.84,e:79.02}] },
+          { words: [{w:"nó",s:79.02,e:79.14},{w:"biết",s:79.14,e:79.34},{w:"lý",s:79.34,e:79.56},{w:"do",s:79.56,e:79.74}] },
+          { words: [{w:"nó",s:80.3,e:80.44},{w:"sẽ",s:80.44,e:80.66},{w:"nghe",s:80.66,e:80.78},{w:"lời",s:80.78,e:80.94},{w:"hơn",s:80.94,e:81.24},{w:"hẳn",s:81.24,e:81.36}] },
+          { words: [{w:"Nhớ",s:82.48,e:82.52},{w:"nhấn",s:82.52,e:82.68},{w:"Like",s:82.68,e:83},{w:"và",s:83,e:83.24},{w:"theo",s:83.24,e:83.42}] },
+          { words: [{w:"dõi",s:83.42,e:83.64},{w:"Contentta",s:83.64,e:84.1},{w:"",s:84.1,e:84.36},{w:"Daily",s:84.36,e:84.64},{w:"News",s:84.64,e:84.92}] },
+          { words: [{w:"để",s:84.92,e:85.36},{w:"cập",s:85.36,e:85.54},{w:"nhật",s:85.54,e:85.74},{w:"tin",s:85.74,e:85.94},{w:"AI",s:85.94,e:86.34}] },
+          { words: [{w:"mới",s:86.34,e:86.56},{w:"nhất",s:86.56,e:86.76},{w:"mỗi",s:86.76,e:86.96},{w:"ngày",s:86.96,e:87.12}] }
+        ];
+        const COMP_DURATION = 87.49;
+        const DIM = "rgba(250, 247, 245, 0.55)";
+        const BRIGHT = "#FAF7F5";
+        const stage = document.querySelector('[data-composition-id="captions"] #cap-stage');
+        if (!stage) return;
+        SEGMENTS.forEach(function (seg, segIdx) {
+          const wrap = document.createElement("div"); wrap.className = "cap-line-wrap"; wrap.id = "cap-seg-" + segIdx;
+          const line = document.createElement("div"); line.className = "cap-line";
+          seg.words.forEach(function (w, wIdx) {
+            const span = document.createElement("span"); span.className = "cap-word"; span.id = "cap-w-" + segIdx + "-" + wIdx; span.textContent = w.w; line.appendChild(span);
+          });
+          wrap.appendChild(line); stage.appendChild(wrap);
+        });
+        const tl = gsap.timeline({ paused: true });
+        const FADE_IN = 0.14, FADE_OUT = 0.06, PRE_ROLL = 0.10, SWAP_GUARD = 0.06, POST_HOLD = 0.18;
+        SEGMENTS.forEach(function (seg, segIdx) {
+          const wrapSel = '[data-composition-id="captions"] #cap-seg-' + segIdx;
+          const segStart = seg.words[0].s, segEnd = seg.words[seg.words.length - 1].e;
+          const nextSeg = SEGMENTS[segIdx + 1];
+          const nextStart = nextSeg ? nextSeg.words[0].s : COMP_DURATION + 1;
+          const naturalExit = segEnd + POST_HOLD, forcedExit = nextStart - PRE_ROLL - SWAP_GUARD - FADE_OUT;
+          const fadeOutAt = Math.max(segStart + 0.1, Math.min(naturalExit, forcedExit));
+          const fadeInAt = Math.max(segStart - PRE_ROLL, 0);
+          const hideAt = fadeOutAt + FADE_OUT + 0.02;
+          seg.words.forEach(function (w, wIdx) {
+            tl.set('[data-composition-id="captions"] #cap-w-' + segIdx + "-" + wIdx, { color: DIM }, fadeInAt);
+          });
+          tl.set(wrapSel, { visibility: "visible" }, fadeInAt);
+          tl.fromTo(wrapSel, { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: FADE_IN, ease: "power2.out" }, fadeInAt);
+          seg.words.forEach(function (w, wIdx) {
+            tl.to('[data-composition-id="captions"] #cap-w-' + segIdx + "-" + wIdx, { color: BRIGHT, duration: 0.10, ease: "power2.out" }, w.s);
+          });
+          tl.to(wrapSel, { opacity: 0, duration: FADE_OUT, ease: "power2.in" }, fadeOutAt);
+          tl.set(wrapSel, { visibility: "hidden" }, hideAt);
+        });
+        tl.set({}, {}, COMP_DURATION);
+        window.__timelines = window.__timelines || {};
+        window.__timelines["captions"] = tl;
+      })();
+    </script>
+  </div>
+</template>

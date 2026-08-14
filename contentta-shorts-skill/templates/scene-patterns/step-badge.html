@@ -1,0 +1,58 @@
+<!--
+  PATTERN: step-badge (COSMIC, tutorial)  ·  face: BOTTOM
+  KEYWORDS: badge số tròn "BƯỚC N" · title · divider draw · 2 card slide-in + hero pick ✓
+  DÙNG KHI: video hướng dẫn nhiều bước — mỗi bước 1 scene, motif badge nhất quán (BƯỚC 1/2/3/4).
+  CUSTOMIZE: đổi số badge + label + title + nội dung card. Reveal card khớp lời (chỉnh mốc trong timeline).
+  Tái dùng cho cả "2 lựa chọn" (card) lẫn "danh sách A/B/C" (đổi card thành rows).
+-->
+<template id="step-badge-template">
+  <div data-composition-id="step-badge" data-start="0" data-width="1080" data-height="1920" data-duration="8.0">
+    <div class="st-wrap">
+      <div class="st-head">
+        <div class="st-badge" id="stbadge">01</div>
+        <div class="st-meta"><div class="st-label" id="stlabel">BƯỚC 1</div><div class="st-title" id="sttitle">Tiêu đề bước</div></div>
+      </div>
+      <div class="st-divider" id="stdiv"></div>
+      <div class="st-cards">
+        <div class="st-card hero" id="stc1"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#E10E1F" stroke-width="2"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4z"/></svg></div><div><div class="ct">Lựa chọn chính</div><div class="cd">mô tả ngắn</div></div><div class="pick" id="stpick">✓</div></div>
+        <div class="st-card" id="stc2"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#A89BA1" stroke-width="2"><polygon points="6 4 20 12 6 20 6 4"/></svg></div><div><div class="ct">Lựa chọn khác</div><div class="cd">mô tả ngắn</div></div></div>
+      </div>
+    </div>
+    <style>
+      [data-composition-id="step-badge"]{position:absolute;inset:0;font-family:"Plus Jakarta Sans",sans-serif}
+      [data-composition-id="step-badge"] .st-wrap{position:absolute;inset:0;will-change:transform,filter}
+      [data-composition-id="step-badge"] .st-head{position:absolute;top:240px;left:100px;right:100px;display:flex;align-items:center;gap:28px}
+      [data-composition-id="step-badge"] .st-badge{width:120px;height:120px;flex:0 0 auto;border-radius:50%;border:2.5px solid rgba(225,14,31,0.7);background:rgba(40,6,14,0.6);display:flex;align-items:center;justify-content:center;font-family:"Be Vietnam Pro",sans-serif;font-weight:800;font-size:60px;color:#E10E1F;box-shadow:0 0 36px rgba(225,14,31,0.3);opacity:0;transform:scale(0.5)}
+      [data-composition-id="step-badge"] .st-label{font-family:"JetBrains Mono",monospace;font-size:26px;letter-spacing:0.3em;color:#A89BA1;text-transform:uppercase;opacity:0}
+      [data-composition-id="step-badge"] .st-title{font-family:"Be Vietnam Pro",sans-serif;font-weight:700;font-size:76px;letter-spacing:-0.02em;color:#FAF7F5;margin-top:6px;opacity:0}
+      [data-composition-id="step-badge"] .st-divider{position:absolute;top:400px;left:100px;right:100px;height:1px;background:#E10E1F;transform-origin:left;transform:scaleX(0)}
+      [data-composition-id="step-badge"] .st-cards{position:absolute;top:470px;left:100px;right:100px;display:flex;flex-direction:column;gap:26px}
+      [data-composition-id="step-badge"] .st-card{position:relative;display:flex;align-items:center;gap:28px;padding:32px 36px;border:1.5px solid rgba(250,247,245,0.14);background:rgba(20,9,17,0.7);border-radius:22px;opacity:0;transform:translateX(-80px)}
+      [data-composition-id="step-badge"] .st-card.hero{border-color:rgba(225,14,31,0.7);background:rgba(60,6,16,0.5);box-shadow:0 0 40px rgba(225,14,31,0.2)}
+      [data-composition-id="step-badge"] .ic{width:78px;height:78px;flex:0 0 auto;border-radius:16px;background:rgba(225,14,31,0.12);display:flex;align-items:center;justify-content:center}
+      [data-composition-id="step-badge"] .ic svg{width:44px;height:44px}
+      [data-composition-id="step-badge"] .ct{font-family:"Be Vietnam Pro",sans-serif;font-weight:700;font-size:52px;color:#FAF7F5}
+      [data-composition-id="step-badge"] .cd{font-weight:500;font-size:26px;color:#A89BA1;margin-top:2px}
+      [data-composition-id="step-badge"] .pick{position:absolute;right:34px;top:50%;transform:translateY(-50%) scale(0);width:60px;height:60px;border-radius:50%;background:#E10E1F;color:#FAF7F5;font-weight:800;font-size:34px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 26px rgba(225,14,31,0.6)}
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      (function(){
+        const tl=gsap.timeline({paused:true});
+        const sc='[data-composition-id="step-badge"] ';
+        tl.to(sc+'#stbadge',{opacity:1,scale:1,duration:0.4,ease:'back.out(1.6)'},0.1)
+          .to(sc+'#stlabel',{opacity:1,duration:0.28,ease:'power2.out'},0.3)
+          .to(sc+'#sttitle',{opacity:1,duration:0.34,ease:'power2.out'},0.45)
+          .to(sc+'#stdiv',{scaleX:1,duration:0.45,ease:'power3.out'},0.6)
+          .to(sc+'#stc1',{opacity:1,x:0,duration:0.4,ease:'power3.out'},3.9)   // chỉnh khớp lời
+          .to(sc+'#stc2',{opacity:1,x:0,duration:0.4,ease:'power3.out'},4.7)
+          .to(sc+'#stpick',{scale:1,duration:0.4,ease:'back.out(2)'},6.4)
+          .to(sc+'#stc1',{x:6,duration:0.04,yoyo:true,repeat:3,ease:'power1.inOut'},6.4);
+        tl.to(sc+'.st-wrap',{y:-100,filter:'blur(20px)',opacity:0,duration:0.30,ease:'power2.in'},7.7);
+        tl.set({},{},8.0);
+        window.__timelines=window.__timelines||{};
+        window.__timelines["step-badge"]=tl;
+      })();
+    </script>
+  </div>
+</template>

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Opus 4.8 — 5 thay đổi · Contentta Daily News</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@1,700&family=JetBrains+Mono:wght@400;500;700&display=block"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/brand-tokens.contentta.css" />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #070409; font-family: "Plus Jakarta Sans", sans-serif; color: #FAF7F5; }
+      .scene-layer { position: absolute; top: 0; left: 0; width: 1080px; height: 1920px; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="87.49" data-width="1080" data-height="1920">
+
+      <!-- Ambient bg — Deep Space nebula + grid + particle drift -->
+      <div id="ambient-bg" class="scene-layer" data-composition-id="ambient-bg" data-composition-src="compositions/ambient-bg.html" data-start="0" data-duration="87.49" data-track-index="0" data-width="1080" data-height="1920"></div>
+
+      <!-- Narration (Gemini 2.5 Flash Preview TTS, Algenib) -->
+      <audio id="voice" data-start="0" data-duration="87.49" data-track-index="4" data-volume="1" src="assets/voice.mp3"></audio>
+      <!-- Background music — Alegend · Horizons -->
+      <audio id="music" data-start="0" data-duration="87.49" data-track-index="5" data-volume="0.14" src="assets/music.mp3"></audio>
+
+      <!-- Scene 1 — Hook: OPUS 4.8 + "5 thay đổi lớn nhất" (0 – 11.10) -->
+      <div id="scene-1" class="scene-layer" data-composition-id="s1-hook" data-composition-src="compositions/scene1-hook.html" data-start="0" data-duration="11.10" data-track-index="2" data-width="1080" data-height="1920"></div>
+
+      <!-- Scene 2 — Thay đổi 1: Giá không đổi + rate limit (11.10 – 24.00) -->
+      <div id="scene-2" class="scene-layer" data-composition-id="s2-change1" data-composition-src="compositions/scene2-change1.html" data-start="11.10" data-duration="12.90" data-track-index="2" data-width="1080" data-height="1920"></div>
+
+      <!-- Scene 3 — Thay đổi 2: Trung thực hơn 50→15 (24.00 – 35.80) -->
+      <div id="scene-3" class="scene-layer" data-composition-id="s3-change2" data-composition-src="compositions/scene3-change2.html" data-start="24.00" data-duration="11.80" data-track-index="2" data-width="1080" data-height="1920"></div>
+
+      <!-- Scene 4 — Thay đổi 3: Thanh Effort slider (35.80 – 52.90) -->
+      <div id="scene-4" class="scene-layer" data-composition-id="s4-change3" data-composition-src="compositions/scene4-change3.html" data-start="35.80" data-duration="17.10" data-track-index="2" data-width="1080" data-height="1920"></div>
+
+      <!-- Scene 5 — Thay đổi 4: Dynamic workflows (52.90 – 61.20) -->
+      <div id="scene-5" class="scene-layer" data-composition-id="s5-change4" data-composition-src="compositions/scene5-change4.html" data-start="52.90" data-duration="8.30" data-track-index="2" data-width="1080" data-height="1920"></div>
+
+      <!-- Scene 6 — Thay đổi 5: Mythos (61.20 – 71.85) -->
+      <div id="scene-6" class="scene-layer" data-composition-id="s6-change5" data-composition-src="compositions/scene6-change5.html" data-start="61.20" data-duration="10.63" data-track-index="2" data-width="1080" data-height="1920"></div>
+
+      <!-- Scene 7 — Mẹo dùng (71.85 – 82.10) -->
+      <div id="scene-7" class="scene-layer" data-composition-id="s7-tip" data-composition-src="compositions/scene7-tip.html" data-start="71.85" data-duration="10.25" data-track-index="2" data-width="1080" data-height="1920"></div>
+
+      <!-- Scene 8 — CTA Contentta Daily News (82.10 – 87.49) -->
+      <div id="scene-8" class="scene-layer" data-composition-id="s8-cta" data-composition-src="compositions/scene8-cta.html" data-start="82.10" data-duration="5.39" data-track-index="2" data-width="1080" data-height="1920"></div>
+
+      <!-- Karaoke captions — dim→bright white -->
+      <div id="captions" class="scene-layer" data-composition-id="captions" data-composition-src="compositions/captions.html" data-start="0" data-duration="87.49" data-track-index="3" data-width="1080" data-height="1920"></div>
+
+      <!-- Grain overlay — top texture -->
+      <div id="grain-overlay" class="scene-layer" data-composition-id="grain-overlay" data-composition-src="compositions/grain-overlay.html" data-start="0" data-duration="87.49" data-track-index="99" data-width="1080" data-height="1920"></div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const mainTl = gsap.timeline({ paused: true });
+      mainTl.set({}, {}, 87.49);
+      window.__timelines["main"] = mainTl;
+    </script>
+  </body>
+</html>

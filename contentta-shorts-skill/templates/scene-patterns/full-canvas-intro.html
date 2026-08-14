@@ -1,0 +1,197 @@
+<template id="scene3-leadin-template">
+  <div
+    data-composition-id="scene3-leadin"
+    data-start="0"
+    data-width="1080"
+    data-height="1920"
+    data-duration="3"
+  >
+    <!-- Lead-in: "Trong video ngày hôm nay mình sẽ demo cho bạn một video" (9.0-12.0s master) -->
+    <div class="s3-panel">
+      <div class="s3-whip-wrap">
+        <div class="s3-corner-tl"></div>
+        <div class="s3-corner-tr"></div>
+        <div class="s3-corner-bl"></div>
+        <div class="s3-corner-br"></div>
+
+        <div class="s3-stamp" id="s3-stamp">
+          <span class="s3-stamp-dot"></span>
+          <span>VIDEO NÀY</span>
+        </div>
+
+        <div class="s3-headline" id="s3-headline">
+          <span class="s3-h-line">DEMO</span>
+          <span class="s3-h-line s3-h-emph">TRỰC TIẾP</span>
+        </div>
+
+        <div class="s3-sub" id="s3-sub">
+          Cloud Code <span class="s3-sub-x">×</span> HyperFrames
+        </div>
+      </div>
+    </div>
+
+    <style>
+      [data-composition-id="scene3-leadin"] {
+        position: absolute;
+        inset: 0;
+      }
+      /* Full-canvas panel — covers face area too with Deep Space + nebula bg
+         (matches ambient-bg). Face is hidden behind this during the scene. */
+      [data-composition-id="scene3-leadin"] .s3-panel {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        background:
+          radial-gradient(ellipse 80% 60% at 50% 40%, #1a0a14 0%, #0e060c 50%, #070409 85%, #050307 100%),
+          #070409;
+      }
+      [data-composition-id="scene3-leadin"] .s3-panel::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(ellipse 50% 40% at 22% 18%, rgba(90, 4, 16, 0.4) 0%, rgba(90, 4, 16, 0.12) 40%, transparent 70%),
+          radial-gradient(ellipse 40% 30% at 85% 88%, rgba(225, 14, 31, 0.15) 0%, rgba(176, 9, 27, 0.05) 35%, transparent 70%);
+        mix-blend-mode: screen;
+        opacity: 0.75;
+        pointer-events: none;
+      }
+      [data-composition-id="scene3-leadin"] .s3-whip-wrap {
+        position: absolute;
+        inset: 280px 100px 480px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        will-change: transform, filter;
+      }
+      [data-composition-id="scene3-leadin"] .s3-corner-tl,
+      [data-composition-id="scene3-leadin"] .s3-corner-tr,
+      [data-composition-id="scene3-leadin"] .s3-corner-bl,
+      [data-composition-id="scene3-leadin"] .s3-corner-br {
+        position: absolute;
+        width: 64px;
+        height: 64px;
+        border: 3px solid #E10E1F;
+        opacity: 0;
+      }
+      [data-composition-id="scene3-leadin"] .s3-corner-tl { top: 0; left: 0; border-right: 0; border-bottom: 0; }
+      [data-composition-id="scene3-leadin"] .s3-corner-tr { top: 0; right: 0; border-left: 0; border-bottom: 0; }
+      [data-composition-id="scene3-leadin"] .s3-corner-bl { bottom: 0; left: 0; border-right: 0; border-top: 0; }
+      [data-composition-id="scene3-leadin"] .s3-corner-br { bottom: 0; right: 0; border-left: 0; border-top: 0; }
+      [data-composition-id="scene3-leadin"] .s3-stamp {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 22px;
+        background: rgba(35, 4, 8, 0.85);
+        border: 1.5px solid #E10E1F;
+        border-radius: 8px;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 700;
+        font-size: 20px;
+        letter-spacing: 0.2em;
+        color: #FAF7F5;
+        opacity: 0;
+      }
+      [data-composition-id="scene3-leadin"] .s3-stamp-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #E10E1F;
+        box-shadow: 0 0 12px rgba(225, 14, 31, 0.85);
+      }
+      [data-composition-id="scene3-leadin"] .s3-headline {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-family: "Be Vietnam Pro", sans-serif;
+        font-weight: 700;
+        font-size: 110px;
+        line-height: 0.95;
+        letter-spacing: -0.03em;
+        color: #FAF7F5;
+        text-shadow: 0 4px 0 #070409, 0 12px 30px rgba(0, 0, 0, 0.65);
+      }
+      [data-composition-id="scene3-leadin"] .s3-h-line {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      [data-composition-id="scene3-leadin"] .s3-h-emph {
+        color: #E10E1F;
+        text-shadow:
+          0 4px 0 #070409,
+          0 0 32px rgba(225, 14, 31, 0.55),
+          0 0 14px rgba(225, 14, 31, 0.4);
+      }
+      [data-composition-id="scene3-leadin"] .s3-sub {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 600;
+        font-size: 26px;
+        letter-spacing: 0.06em;
+        color: #A89BA1;
+        opacity: 0;
+        clip-path: inset(0 100% 0 0);
+      }
+      [data-composition-id="scene3-leadin"] .s3-sub-x {
+        color: #E10E1F;
+        font-weight: 700;
+        margin: 0 8px;
+      }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      (function () {
+        const tl = gsap.timeline({ paused: true });
+        const scope = '[data-composition-id="scene3-leadin"] ';
+        const DUR = 3;
+
+        // Entry whip
+        gsap.set(scope + ".s3-whip-wrap", { y: 60, filter: "blur(14px)", opacity: 0.4 });
+        tl.to(
+          scope + ".s3-whip-wrap",
+          { y: 0, filter: "blur(0px)", opacity: 1, duration: 0.5, ease: "power3.out" },
+          0,
+        );
+
+        // Corners pop in
+        tl.to(
+          scope + ".s3-corner-tl, " + scope + ".s3-corner-tr, " + scope + ".s3-corner-bl, " + scope + ".s3-corner-br",
+          { opacity: 0.85, duration: 0.32, ease: "power2.out", stagger: 0.04 },
+          0.1,
+        );
+
+        // Stamp — synced to local 0.6s (master 9.6s, "Trong")
+        tl.to(scope + "#s3-stamp", { opacity: 1, duration: 0.32, ease: "power2.out" }, 0.55);
+
+        // DEMO — synced to local 1.55s (master 11.0s, "demo")
+        tl.to(
+          scope + ".s3-h-line:not(.s3-h-emph)",
+          { opacity: 1, y: 0, duration: 0.42, ease: "back.out(1.5)" },
+          1.5,
+        );
+
+        // TRỰC TIẾP — synced to local 1.9s (master 11.5)
+        tl.to(
+          scope + ".s3-h-emph",
+          { opacity: 1, y: 0, duration: 0.42, ease: "back.out(1.8)" },
+          1.85,
+        );
+
+        // Sub-line clip reveal
+        tl.to(
+          scope + "#s3-sub",
+          { opacity: 1, clipPath: "inset(0 0% 0 0)", duration: 0.5, ease: "power3.out" },
+          2.25,
+        );
+
+        tl.set({}, {}, DUR);
+
+        window.__timelines = window.__timelines || {};
+        window.__timelines["scene3-leadin"] = tl;
+      })();
+    </script>
+  </div>
+</template>

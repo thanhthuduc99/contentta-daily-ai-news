@@ -1,0 +1,23 @@
+node_modules/
+*.log
+.DS_Store
+Thumbs.db
+.playwright-mcp/
+
+# Secrets — never commit
+.env
+.env.*
+!.env.example
+
+# Local control panel
+/app/
+
+# Generated video output (template project trong skill van duoc track)
+/video-projects/
+
+# Media: bring your own, do not redistribute
+*.mp3
+*.mp4
+*.wav
+*.m4a
+*.mov

@@ -1,0 +1,59 @@
+<template id="s1-hook-template">
+  <div data-composition-id="s1-hook" data-start="0" data-width="1080" data-height="1920" data-duration="11.36">
+    <div class="s1-wrap">
+      <svg class="s1-ring" id="s1ring" viewBox="0 0 800 800">
+        <ellipse cx="400" cy="400" rx="360" ry="180" fill="none" stroke="#E10E1F" stroke-width="2" opacity="0.5" transform="rotate(-18 400 400)"/>
+        <ellipse cx="400" cy="400" rx="320" ry="140" fill="none" stroke="#FAF7F5" stroke-width="1.2" opacity="0.22" transform="rotate(22 400 400)"/>
+        <circle cx="400" cy="400" r="12" fill="#E10E1F"/>
+        <circle cx="400" cy="400" r="26" fill="none" stroke="#E10E1F" stroke-width="2" opacity="0.4"/>
+      </svg>
+
+      <div class="s1-chip" id="s1chip"><span class="s1-dot"></span><span>CLAUDE CODE · BẢN MỚI</span></div>
+
+      <div class="s1-mark" id="s1mark">
+        <span class="ch">O</span><span class="ch">P</span><span class="ch">U</span><span class="ch">S</span>
+        <span class="sp"></span>
+        <span class="ch accent">4</span><span class="ch accent">.</span><span class="ch accent">8</span>
+      </div>
+
+      <div class="s1-sub" id="s1sub">Build trên 4.7 · phán đoán sắc hơn · tự chủ lâu hơn</div>
+
+      <div class="s1-slam" id="s1slam"><span class="num">5</span> THAY ĐỔI LỚN NHẤT</div>
+    </div>
+    <style>
+      [data-composition-id="s1-hook"]{position:absolute;inset:0;font-family:"Plus Jakarta Sans",sans-serif}
+      [data-composition-id="s1-hook"] .s1-wrap{position:absolute;inset:0;will-change:transform,filter}
+      [data-composition-id="s1-hook"] .s1-ring{position:absolute;top:600px;left:50%;width:1040px;height:1040px;transform:translate(-50%,-50%);opacity:0;will-change:transform,opacity}
+      [data-composition-id="s1-hook"] .s1-chip{position:absolute;top:430px;left:50%;transform:translateX(-50%);display:inline-flex;align-items:center;gap:12px;padding:11px 24px;border:1.5px solid rgba(225,14,31,0.55);background:rgba(7,4,9,0.7);border-radius:8px;font-weight:600;font-size:24px;letter-spacing:0.2em;color:#FAF7F5;white-space:nowrap;opacity:0}
+      [data-composition-id="s1-hook"] .s1-dot{width:10px;height:10px;border-radius:50%;background:#E10E1F;box-shadow:0 0 12px rgba(225,14,31,0.85)}
+      [data-composition-id="s1-hook"] .s1-mark{position:absolute;top:540px;left:0;right:0;display:flex;justify-content:center;align-items:baseline;font-family:"Be Vietnam Pro",sans-serif;font-weight:700;font-size:172px;letter-spacing:-0.02em;line-height:1;color:#FAF7F5;text-shadow:0 4px 0 #070409,0 12px 32px rgba(0,0,0,0.7)}
+      [data-composition-id="s1-hook"] .s1-mark .ch{display:inline-block;opacity:0;transform:translateY(60px);filter:blur(18px)}
+      [data-composition-id="s1-hook"] .s1-mark .sp{width:34px}
+      [data-composition-id="s1-hook"] .s1-mark .accent{color:#E10E1F;text-shadow:0 4px 0 #070409,0 0 36px rgba(225,14,31,0.55)}
+      [data-composition-id="s1-hook"] .s1-sub{position:absolute;top:790px;left:0;right:0;text-align:center;font-weight:500;font-size:30px;letter-spacing:0.01em;color:#A89BA1;opacity:0;transform:translateY(14px)}
+      [data-composition-id="s1-hook"] .s1-slam{position:absolute;top:1060px;left:0;right:0;text-align:center;font-family:"Be Vietnam Pro",sans-serif;font-weight:800;font-size:96px;letter-spacing:-0.02em;color:#FAF7F5;opacity:0;transform:scale(0.8);text-shadow:0 4px 0 #070409,0 0 40px rgba(0,0,0,0.6)}
+      [data-composition-id="s1-hook"] .s1-slam .num{color:#E10E1F;font-size:120px;text-shadow:0 4px 0 #070409,0 0 40px rgba(225,14,31,0.6)}
+    </style>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <script>
+      (function(){
+        const tl=gsap.timeline({paused:true});
+        const sc='[data-composition-id="s1-hook"] ';
+        const DUR=11.10;
+        tl.to(sc+'#s1ring',{opacity:0.85,duration:0.6,ease:'power2.out'},0)
+          .to(sc+'#s1ring',{rotation:16,duration:DUR,ease:'none',transformOrigin:'50% 50%'},0)
+          .to(sc+'#s1chip',{opacity:1,duration:0.32,ease:'power2.out'},0.1)
+          .to(sc+'.s1-mark .ch',{opacity:1,y:0,filter:'blur(0px)',duration:0.5,ease:'power3.out',stagger:0.05},0.22)
+          .to(sc+'#s1sub',{opacity:1,y:0,duration:0.5,ease:'power3.out'},3.3)
+          // "Đây là 5 thay đổi lớn nhất" — Đây 8.8 / "5" 9.0
+          .to(sc+'#s1slam',{opacity:1,scale:1,duration:0.5,ease:'back.out(1.7)'},8.6)
+          .to(sc+'#s1slam .num',{scale:1.12,duration:0.18,yoyo:true,repeat:1,ease:'power2.inOut'},9.0);
+        // gentle idle breathe on wordmark
+        tl.to(sc+'#s1mark',{scale:1.02,duration:1.6,ease:'sine.inOut',yoyo:true,repeat:2},2.6);
+        tl.set({},{},DUR);
+        window.__timelines=window.__timelines||{};
+        window.__timelines["s1-hook"]=tl;
+      })();
+    </script>
+  </div>
+</template>

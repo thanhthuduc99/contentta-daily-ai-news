@@ -1,0 +1,202 @@
+<template id="captions-template">
+  <div
+    data-composition-id="captions"
+    data-start="0"
+    data-width="1080"
+    data-height="1920"
+    data-duration="36"
+  >
+    <div class="cap-stage" id="cap-stage"></div>
+
+    <style>
+      [data-composition-id="captions"] {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+      [data-composition-id="captions"] .cap-stage {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 220px;
+        height: 0;
+        pointer-events: none;
+      }
+      [data-composition-id="captions"] .cap-line-wrap {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        padding: 0 80px;
+        opacity: 0;
+        visibility: hidden;
+      }
+      [data-composition-id="captions"] .cap-line {
+        display: inline-block;
+        max-width: 920px;
+        background: transparent;
+        padding: 0 8px;
+        text-align: center;
+        font-family: "Be Vietnam Pro", sans-serif;
+        font-weight: 600;
+        font-size: 44px;
+        line-height: 1.22;
+        letter-spacing: 0.012em;
+        color: rgba(250, 247, 245, 0.55);
+        /* Thinner outline — 2px stack only, less bleed between letters so chars
+           don't read as "stuck together". */
+        text-shadow:
+          -2px -2px 0 #070409,
+          2px -2px 0 #070409,
+          -2px 2px 0 #070409,
+          2px 2px 0 #070409,
+          0 0 6px rgba(0, 0, 0, 0.55),
+          0 4px 12px rgba(0, 0, 0, 0.5);
+        white-space: normal;
+      }
+      [data-composition-id="captions"] .cap-word {
+        display: inline-block;
+        margin: 0 4px;
+        transform-origin: center center;
+        will-change: color;
+      }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      (function () {
+        // Word-level transcript chunked to 3-5 word segments. Each segment fades
+        // in as a unit; within the segment, words light up dim→bright white as
+        // they're spoken. Timestamps are post-1.1x speed (already divided by 1.1).
+        const SEGMENTS = [
+          { words: [{w:"Hey",s:0.00,e:0.60},{w:"Trends",s:0.60,e:1.11},{w:"vừa",s:1.11,e:1.18},{w:"ra",s:1.18,e:1.33},{w:"mắt",s:1.33,e:1.55}] },
+          { words: [{w:"HyperFrames",s:1.54,e:2.13},{w:"vào",s:2.13,e:2.42},{w:"11",s:2.42,e:2.64},{w:"ngày",s:2.64,e:2.78},{w:"trước",s:2.78,e:3.02}] },
+          { words: [{w:"và",s:3.02,e:3.33},{w:"đây",s:3.33,e:3.53},{w:"là",s:3.53,e:3.69},{w:"một",s:3.69,e:3.78}] },
+          { words: [{w:"công",s:3.78,e:4.16},{w:"cụ",s:4.16,e:4.33},{w:"giúp",s:4.33,e:4.67},{w:"cho",s:4.67,e:5.02},{w:"bạn",s:5.02,e:5.18}] },
+          { words: [{w:"có",s:5.18,e:5.40},{w:"thể",s:5.40,e:5.55},{w:"edit",s:5.55,e:5.78}] },
+          { words: [{w:"những",s:5.78,e:5.98},{w:"video",s:5.98,e:6.62},{w:"một",s:6.62,e:7.20},{w:"cách",s:7.20,e:7.33}] },
+          { words: [{w:"chuyên",s:7.33,e:7.53},{w:"nghiệp",s:7.53,e:7.95},{w:"bằng",s:7.95,e:8.16},{w:"việc",s:8.16,e:8.40}] },
+          { words: [{w:"sử",s:8.40,e:8.65},{w:"dụng",s:8.65,e:8.80},{w:"AI",s:8.80,e:9.00}] },
+          { words: [{w:"Trong",s:9.62,e:9.71},{w:"video",s:9.71,e:9.84},{w:"ngày",s:9.84,e:10.00},{w:"hôm",s:10.00,e:10.02},{w:"nay",s:10.02,e:10.18}] },
+          { words: [{w:"mình",s:10.62,e:10.75},{w:"sẽ",s:10.75,e:11.00},{w:"demo",s:11.00,e:11.09}] },
+          { words: [{w:"cho",s:11.09,e:11.40},{w:"bạn",s:11.40,e:11.45},{w:"một",s:11.45,e:11.54},{w:"video",s:11.54,e:11.91}] },
+          { words: [{w:"mà",s:11.91,e:12.04},{w:"mình",s:12.04,e:12.27},{w:"sử",s:12.27,e:12.40},{w:"dụng",s:12.40,e:12.47}] },
+          { words: [{w:"Cloud",s:12.47,e:12.96},{w:"Code",s:12.96,e:13.18},{w:"kết",s:13.18,e:13.51},{w:"hợp",s:13.51,e:13.58}] },
+          { words: [{w:"với",s:13.58,e:13.86},{w:"HyperFrames",s:13.86,e:14.29},{w:"để",s:14.29,e:14.96},{w:"edit",s:14.96,e:15.16}] },
+          { words: [{w:"một",s:15.16,e:15.36},{w:"video",s:15.36,e:15.71},{w:"khoảng",s:15.71,e:15.93},{w:"20",s:15.93,e:16.33},{w:"giây",s:16.33,e:16.53}] },
+          { words: [{w:"cho",s:16.53,e:17.18},{w:"phần",s:17.18,e:17.87},{w:"giới",s:17.87,e:18.00}] },
+          { words: [{w:"thiệu",s:18.00,e:18.13},{w:"của",s:18.13,e:18.49},{w:"mình",s:18.49,e:18.78}] },
+          { words: [{w:"Cũng",s:18.95,e:19.00},{w:"như",s:19.00,e:19.14},{w:"là",s:19.14,e:19.31},{w:"mình",s:19.31,e:19.47}] },
+          { words: [{w:"sẽ",s:19.47,e:19.62},{w:"live",s:19.62,e:19.91},{w:"build",s:19.91,e:20.07},{w:"hoàn",s:20.07,e:20.29},{w:"toàn",s:20.29,e:20.45}] },
+          { words: [{w:"một",s:20.45,e:21.04},{w:"quy",s:21.04,e:21.89},{w:"trình",s:21.89,e:21.98},{w:"build",s:21.98,e:22.55}] },
+          { words: [{w:"một",s:22.55,e:22.95},{w:"video",s:22.95,e:23.69},{w:"sử",s:23.69,e:24.04},{w:"dụng",s:24.04,e:24.09}] },
+          { words: [{w:"Cloud",s:24.09,e:24.51},{w:"Code",s:24.51,e:24.66},{w:"và",s:24.51,e:24.66},{w:"HyperFrames",s:24.66,e:24.98}] },
+          { words: [{w:"sẽ",s:24.98,e:25.25},{w:"như",s:25.25,e:25.38},{w:"thế",s:25.38,e:25.47},{w:"nào",s:25.47,e:25.64}] },
+          { words: [{w:"Cũng",s:25.64,e:26.24},{w:"như",s:26.24,e:26.40},{w:"là",s:26.40,e:26.75},{w:"ở",s:26.75,e:26.84}] },
+          { words: [{w:"cuối",s:26.84,e:26.91},{w:"video",s:26.91,e:27.16},{w:"mình",s:27.16,e:27.38},{w:"sẽ",s:27.38,e:27.56}] },
+          { words: [{w:"cho",s:27.56,e:27.62},{w:"bạn",s:27.62,e:27.76},{w:"một",s:27.76,e:27.96},{w:"số",s:27.96,e:28.05}] },
+          { words: [{w:"cái",s:28.05,e:28.24},{w:"lời",s:28.24,e:28.31},{w:"lưu",s:28.31,e:28.38},{w:"ý",s:28.38,e:28.49}] },
+          { words: [{w:"để",s:28.49,e:28.95},{w:"mà",s:28.95,e:29.04},{w:"bạn",s:29.04,e:29.24},{w:"có",s:29.24,e:29.42},{w:"thể",s:29.42,e:29.84}] },
+          { words: [{w:"biết",s:29.84,e:30.45},{w:"và",s:30.45,e:30.78},{w:"hiểu",s:30.78,e:30.93},{w:"hơn",s:30.93,e:31.18}] },
+          { words: [{w:"khi",s:31.18,e:31.34},{w:"mà",s:31.34,e:31.51},{w:"sử",s:31.51,e:31.60},{w:"dụng",s:31.60,e:31.87},{w:"HyperFrames",s:31.87,e:33.30}] },
+          { words: [{w:"và",s:33.45,e:33.80},{w:"khi",s:33.80,e:33.89},{w:"mà",s:33.89,e:33.98},{w:"bạn",s:33.98,e:34.15}] },
+          { words: [{w:"edit",s:34.15,e:34.45},{w:"nó",s:34.45,e:34.74},{w:"với",s:34.74,e:34.87}] },
+          { words: [{w:"lại",s:34.87,e:35.05},{w:"Cloud",s:35.05,e:35.27},{w:"Code",s:35.27,e:35.55}] },
+        ];
+
+        const COMP_DURATION = 36;
+        const DIM = "rgba(250, 247, 245, 0.55)";
+        const BRIGHT = "#FAF7F5";
+
+        const stage = document.querySelector('[data-composition-id="captions"] #cap-stage');
+        if (!stage) return;
+
+        SEGMENTS.forEach(function (seg, segIdx) {
+          const wrap = document.createElement("div");
+          wrap.className = "cap-line-wrap";
+          wrap.id = "cap-seg-" + segIdx;
+
+          const line = document.createElement("div");
+          line.className = "cap-line";
+
+          seg.words.forEach(function (w, wIdx) {
+            const span = document.createElement("span");
+            span.className = "cap-word";
+            span.id = "cap-w-" + segIdx + "-" + wIdx;
+            span.textContent = w.w;
+            line.appendChild(span);
+          });
+
+          wrap.appendChild(line);
+          stage.appendChild(wrap);
+        });
+
+        const tl = gsap.timeline({ paused: true });
+        const FADE_IN = 0.14;
+        const FADE_OUT = 0.06;
+        const PRE_ROLL = 0.10;
+        const POST_HOLD = 0.20;
+        // Gap before next segment's fade-in where current MUST already be hidden.
+        // Prevents prev text being visible when next text is starting to land.
+        const SWAP_GUARD = 0.06;
+
+        SEGMENTS.forEach(function (seg, segIdx) {
+          const wrapSel = '[data-composition-id="captions"] #cap-seg-' + segIdx;
+          const segStart = seg.words[0].s;
+          const segEnd = seg.words[seg.words.length - 1].e;
+
+          // Force exit before next segment's fade-in starts. Pick the earlier of:
+          //   naturalExit  = segEnd + POST_HOLD  (caption hangs briefly after speech)
+          //   forcedExit   = nextSegStart - PRE_ROLL - SWAP_GUARD - FADE_OUT
+          // so the wrapper is fully hidden by the time the next segment lands.
+          const nextSeg = SEGMENTS[segIdx + 1];
+          const nextStart = nextSeg ? nextSeg.words[0].s : COMP_DURATION + 1;
+          const naturalExit = segEnd + POST_HOLD;
+          const forcedExit = nextStart - PRE_ROLL - SWAP_GUARD - FADE_OUT;
+          const fadeOutAt = Math.max(segStart + 0.1, Math.min(naturalExit, forcedExit));
+          const fadeInAt = Math.max(segStart - PRE_ROLL, 0);
+          const hideAt = fadeOutAt + FADE_OUT + 0.02;
+
+          // Reset all words in this segment to dim before showing.
+          seg.words.forEach(function (w, wIdx) {
+            const wordSel = '[data-composition-id="captions"] #cap-w-' + segIdx + "-" + wIdx;
+            tl.set(wordSel, { color: DIM }, fadeInAt);
+          });
+
+          tl.set(wrapSel, { visibility: "visible" }, fadeInAt);
+          tl.fromTo(
+            wrapSel,
+            { opacity: 0, y: 6 },
+            { opacity: 1, y: 0, duration: FADE_IN, ease: "power2.out" },
+            fadeInAt,
+          );
+
+          // Each word: dim → bright white as it's spoken. Pure color shift, no
+          // red highlight, no scale pop — keeps the eye on flow without snagging.
+          seg.words.forEach(function (w, wIdx) {
+            const wordSel = '[data-composition-id="captions"] #cap-w-' + segIdx + "-" + wIdx;
+            tl.to(
+              wordSel,
+              { color: BRIGHT, duration: 0.10, ease: "power2.out" },
+              w.s,
+            );
+          });
+
+          tl.to(
+            wrapSel,
+            { opacity: 0, duration: FADE_OUT, ease: "power2.in" },
+            fadeOutAt,
+          );
+          tl.set(wrapSel, { visibility: "hidden" }, hideAt);
+        });
+
+        tl.set({}, {}, COMP_DURATION);
+
+        window.__timelines = window.__timelines || {};
+        window.__timelines["captions"] = tl;
+      })();
+    </script>
+  </div>
+</template>

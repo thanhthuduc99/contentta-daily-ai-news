@@ -1,0 +1,66 @@
+<!doctype html>
+<!--
+  10 — OUTRO (hybrid cosmic + editorial) | use-case: kết video / brand lockup
+  KEYWORDS: orbital zoom-out · particle converge to wordmark · serif tagline
+            · hairline footer · karaoke caption · breathing outro hold | 1080×1920 dọc
+-->
+<html lang="vi"><head><meta charset="UTF-8"/>
+<title>10 · Outro Hybrid</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700&family=Be+Vietnam+Pro:wght@600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet"/>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:100vw;height:100vh;overflow:hidden;background:#000;color:#FAF7F5;display:flex;align-items:center;justify-content:center;font-family:"Be Vietnam Pro",sans-serif}
+  .stage{width:1080px;height:1920px;position:relative;overflow:hidden;transform-origin:center;background:#070409;flex:0 0 auto}
+  .nebula{position:absolute;inset:-200px;background:radial-gradient(ellipse 60% 45% at 50% 36%,rgba(225,14,31,0.20),rgba(90,4,16,0.12) 38%,transparent 70%),radial-gradient(ellipse 70% 50% at 50% 34%,#160812,#0c0510 55%,#070409 90%)}
+  .orbit{position:absolute;top:640px;left:50%;border-radius:50%;transform-origin:center}
+  .o1{width:1100px;height:1100px;margin:-550px 0 0 -550px;border:1.5px solid rgba(225,14,31,0.35)}
+  .o2{width:760px;height:760px;margin:-380px 0 0 -380px;border:1px solid rgba(250,247,245,0.13)}
+  .particles{position:absolute;inset:0;pointer-events:none}
+  .dot{position:absolute;border-radius:50%;background:#FAF7F5;box-shadow:0 0 9px rgba(225,14,31,0.7)}
+  .dot.red{background:#E10E1F;box-shadow:0 0 12px rgba(225,14,31,0.9)}
+  .wordmark{position:absolute;top:600px;left:0;right:0;text-align:center;font-family:"Be Vietnam Pro",sans-serif;font-weight:800;font-size:132px;letter-spacing:-0.03em;color:#FAF7F5;text-shadow:0 0 60px rgba(225,14,31,0.4),0 4px 0 #070409;opacity:0;transform:scale(0.85)}
+  .wordmark .a{color:#E10E1F}
+  .tagline{position:absolute;top:760px;left:0;right:0;text-align:center;font-family:"Playfair Display",serif;font-style:italic;font-weight:700;font-size:44px;color:#A89BA1;opacity:0}
+  .foot{position:absolute;top:880px;left:0;right:0;text-align:center;font-family:"JetBrains Mono",monospace;font-size:22px;letter-spacing:0.3em;color:#A89BA1;text-transform:uppercase;opacity:0}
+  .dvf{position:absolute;top:850px;left:50%;width:0;height:1px;background:#E10E1F;transform:translateX(-50%)}
+  .caption{position:absolute;bottom:300px;left:0;right:0;text-align:center;padding:0 70px;font-family:"Be Vietnam Pro",sans-serif;font-weight:700;font-size:52px;line-height:1.16;letter-spacing:-0.01em}
+  .caption .cw{display:inline-block;color:rgba(250,247,245,0.45);text-shadow:-2px -2px 0 #070409,2px -2px 0 #070409,-2px 2px 0 #070409,2px 2px 0 #070409,0 5px 12px rgba(0,0,0,0.6)}
+  .face{position:absolute;bottom:0;left:0;right:0;height:200px;background:linear-gradient(0deg,rgba(225,14,31,0.06),transparent);border-top:1px solid rgba(225,14,31,0.25)}
+  .face::after{content:"▮ VÙNG MẶT NGƯỜI";position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-size:15px;letter-spacing:0.4em;color:rgba(168,155,161,0.5)}
+</style></head><body>
+<div class="stage" id="stage">
+  <div class="nebula"></div>
+  <div class="orbit o1" id="o1"></div><div class="orbit o2" id="o2"></div>
+  <div class="particles" id="p"></div>
+  <div class="wordmark" id="wm">CONTENT<span class="a">TA</span></div>
+  <div class="tagline" id="tag">AI Automation Agency</div>
+  <div class="dvf" id="dvf"></div>
+  <div class="foot" id="foot">AI AGENT · CONTENT · VIDEO</div>
+  <div class="caption" id="cap"><span class="cw">Cảm</span> <span class="cw">ơn</span> <span class="cw">anh</span> <span class="cw">đã</span> <span class="cw">xem</span></div>
+  <div class="face"></div>
+</div>
+<script>
+function fit(){document.getElementById('stage').style.transform='scale('+Math.min(innerWidth/1080,innerHeight/1920)+')'}
+addEventListener('resize',fit);fit();
+const p=document.getElementById('p');
+for(let i=0;i<24;i++){const a=i*0.85,r=160+(i%5)*80,x=540+Math.cos(a)*r,y=640+Math.sin(a)*r*0.82;const d=document.createElement('div');d.className=i%4===0?'dot red':'dot';d.dataset.x=x;d.dataset.y=y;d.style.left=x+'px';d.style.top=y+'px';const s=3+(i%3);d.style.width=s+'px';d.style.height=s+'px';p.appendChild(d)}
+gsap.to('#o1',{rotation:360,duration:30,ease:'none',repeat:-1,transformOrigin:'50% 50%'});
+gsap.to('#o2',{rotation:-360,duration:20,ease:'none',repeat:-1,transformOrigin:'50% 50%'});
+const cw=gsap.utils.toArray('#cap .cw');
+const tl=gsap.timeline({repeat:-1,repeatDelay:0.5});
+// particles converge into wordmark
+tl.fromTo('.dot',{scale:1.4,opacity:0.8},{x:(i,t)=>540-parseFloat(t.dataset.x),y:(i,t)=>640-parseFloat(t.dataset.y),scale:0.6,opacity:0,duration:0.7,ease:'power2.in',stagger:0.01},0.1)
+  .to('#wm',{opacity:1,scale:1,duration:0.5,ease:'back.out(1.5)'},0.55)
+  .to('#tagline',{},0)
+  .to('#tag',{opacity:1,duration:0.30,ease:'power2.out'},0.85)
+  .to('#dvf',{width:280,duration:0.40,ease:'power3.out'},1.0)
+  .to('#foot',{opacity:1,duration:0.28,ease:'power2.out'},1.12);
+cw.forEach((w,i)=>tl.to(w,{color:'#FAF7F5',duration:0.10,ease:'power2.out'},1.25+i*0.13));
+// breathing outro hold then reset
+tl.to({},{duration:0.9},2.0)
+  .set('.dot',{x:0,y:0,scale:1.4,opacity:0.8},3.4)
+  .set('#wm',{opacity:0,scale:0.85},3.4)
+  .set('#tag',{opacity:0},3.4).set('#foot',{opacity:0},3.4).set('#dvf',{width:0},3.4)
+  .set(cw,{color:'rgba(250,247,245,0.45)'},3.4);
+</script></body></html>

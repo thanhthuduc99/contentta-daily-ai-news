@@ -1,0 +1,65 @@
+<template id="s6-change5-template">
+  <div data-composition-id="s6-change5" data-start="0" data-width="1080" data-height="1920" data-duration="10.18">
+    <div class="cg-wrap">
+      <div class="cg-head">
+        <div class="cg-badge" id="cg6badge">5</div>
+        <div class="cg-meta"><div class="cg-label" id="cg6label">THAY ĐỔI 5</div><div class="cg-title accent" id="cg6title">MYTHOS</div></div>
+      </div>
+      <div class="cg-div" id="cg6div"></div>
+
+      <div class="cg-sub" id="cg6sub">Dòng model mới Anthropic hé lộ</div>
+
+      <div class="cg-card hero" id="cg6c1">
+        <div class="cg-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#E10E1F" stroke-width="2"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4z"/></svg></div>
+        <div><div class="cg-ct">Mạnh hơn cả Opus</div><div class="cg-cd">trí thông minh cao hơn</div></div>
+      </div>
+
+      <div class="cg-lock" id="cg6lock">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#A89BA1" stroke-width="2"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>
+        <span>An ninh mạng · chưa mở công chúng</span>
+      </div>
+    </div>
+    <style>
+      [data-composition-id="s6-change5"]{position:absolute;inset:0;font-family:"Plus Jakarta Sans",sans-serif}
+      [data-composition-id="s6-change5"] .cg-wrap{position:absolute;inset:0;will-change:transform,filter}
+      [data-composition-id="s6-change5"] .cg-head{position:absolute;top:300px;left:100px;right:100px;display:flex;align-items:center;gap:28px}
+      [data-composition-id="s6-change5"] .cg-badge{width:120px;height:120px;flex:0 0 auto;border-radius:50%;border:2.5px solid rgba(225,14,31,0.7);background:rgba(40,6,14,0.6);display:flex;align-items:center;justify-content:center;font-family:"Be Vietnam Pro",sans-serif;font-weight:800;font-size:64px;color:#E10E1F;box-shadow:0 0 36px rgba(225,14,31,0.3);opacity:0;transform:scale(0.5)}
+      [data-composition-id="s6-change5"] .cg-label{font-family:"JetBrains Mono",monospace;font-size:26px;letter-spacing:0.3em;color:#A89BA1;text-transform:uppercase;opacity:0}
+      [data-composition-id="s6-change5"] .cg-title{font-family:"Be Vietnam Pro",sans-serif;font-weight:800;font-size:84px;letter-spacing:0.02em;color:#FAF7F5;margin-top:6px;opacity:0}
+      [data-composition-id="s6-change5"] .cg-title.accent{color:#E10E1F;text-shadow:0 0 38px rgba(225,14,31,0.5)}
+      [data-composition-id="s6-change5"] .cg-div{position:absolute;top:470px;left:100px;right:100px;height:1px;background:#E10E1F;transform-origin:left;transform:scaleX(0)}
+      [data-composition-id="s6-change5"] .cg-sub{position:absolute;top:520px;left:100px;right:100px;font-weight:500;font-size:32px;color:#A89BA1;opacity:0;transform:translateY(14px)}
+      [data-composition-id="s6-change5"] .cg-card{position:absolute;top:620px;left:100px;right:100px;display:flex;align-items:center;gap:30px;padding:38px 40px;border:1.5px solid rgba(225,14,31,0.7);background:rgba(60,6,16,0.5);border-radius:24px;box-shadow:0 0 40px rgba(225,14,31,0.2);opacity:0;transform:translateX(-70px)}
+      [data-composition-id="s6-change5"] .cg-ic{width:90px;height:90px;flex:0 0 auto;border-radius:18px;background:rgba(225,14,31,0.12);display:flex;align-items:center;justify-content:center}
+      [data-composition-id="s6-change5"] .cg-ic svg{width:50px;height:50px}
+      [data-composition-id="s6-change5"] .cg-ct{font-family:"Be Vietnam Pro",sans-serif;font-weight:700;font-size:54px;color:#FAF7F5}
+      [data-composition-id="s6-change5"] .cg-cd{font-weight:500;font-size:30px;color:#A89BA1;margin-top:4px}
+      [data-composition-id="s6-change5"] .cg-lock{position:absolute;top:830px;left:100px;right:100px;display:flex;align-items:center;justify-content:center;gap:18px;padding:24px 30px;border:1.5px dashed rgba(168,155,161,0.5);background:rgba(20,9,17,0.6);border-radius:16px;font-weight:600;font-size:34px;color:#A89BA1;opacity:0;transform:translateY(20px)}
+      [data-composition-id="s6-change5"] .cg-lock svg{width:42px;height:42px;flex:0 0 auto}
+    </style>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <script>
+      (function(){
+        const tl=gsap.timeline({paused:true});
+        const sc='[data-composition-id="s6-change5"] ';
+        const DUR=10.63;
+        tl.to(sc+'#cg6badge',{opacity:1,scale:1,duration:0.42,ease:'back.out(1.6)'},0.1)
+          .to(sc+'#cg6label',{opacity:1,duration:0.28,ease:'power2.out'},0.32)
+          // "Mythos" 64.0 → local 2.8
+          .to(sc+'#cg6title',{opacity:1,duration:0.4,ease:'back.out(1.6)'},2.6)
+          .to(sc+'#cg6div',{scaleX:1,duration:0.5,ease:'power3.out'},2.9)
+          .to(sc+'#cg6sub',{opacity:1,y:0,duration:0.4,ease:'power3.out'},3.2)
+          // "mạnh hơn cả Opus" 66.3–66.8 → local 5.1
+          .to(sc+'#cg6c1',{opacity:1,x:0,duration:0.46,ease:'power3.out'},4.9)
+          .to(sc+'#cg6c1',{x:6,duration:0.05,yoyo:true,repeat:3,ease:'power1.inOut'},5.5)
+          // "an ninh mạng" 69.6 → local 8.4
+          .to(sc+'#cg6lock',{opacity:1,y:0,duration:0.44,ease:'power3.out'},8.3);
+        tl.to(sc+'#cg6title',{textShadow:'0 0 56px rgba(225,14,31,0.8)',duration:1.2,yoyo:true,repeat:4,ease:'sine.inOut'},2.9);
+        tl.to(sc+'.cg-wrap',{y:-80,filter:'blur(16px)',opacity:0,duration:0.3,ease:'power2.in'},DUR-0.34);
+        tl.set({},{},DUR);
+        window.__timelines=window.__timelines||{};
+        window.__timelines["s6-change5"]=tl;
+      })();
+    </script>
+  </div>
+</template>

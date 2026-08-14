@@ -1,0 +1,50 @@
+<!--
+  PATTERN: editorial-questions (EDITORIAL)  ·  face: BOTTOM
+  KEYWORDS: serif italic Playfair · số 01/02 mono · hairline draw từng dòng · stagger reveal
+  DÙNG KHI: nêu 2 câu hỏi / 2 điểm đối lập ("Có hiệu quả? / Dành cho bạn?"). Sang, không hype.
+  CUSTOMIZE: text 2 câu hỏi (cụm cuối accent đỏ). Q1 reveal sớm, Q2 khớp lúc nói tới ý 2.
+  FONT cần: Playfair Display (ital), JetBrains Mono, Be Vietnam Pro — load ở index <head>.
+-->
+<template id="editorial-questions-template">
+  <div data-composition-id="editorial-questions" data-start="0" data-width="1080" data-height="1920" data-duration="9.9">
+    <div class="eq-wrap">
+      <div class="eq-tag" id="eqtag">NHÃN TRÊN <span class="a">·</span> PHỤ</div>
+      <div class="eq-divtop" id="eqdivtop"></div>
+      <div class="eq-q" id="eqq1"><span class="qm">01</span><span class="qt">Câu hỏi <span class="a">một?</span></span></div>
+      <div class="eq-l" id="eql1"></div>
+      <div class="eq-q" id="eqq2"><span class="qm">02</span><span class="qt">Câu hỏi <span class="a">hai?</span></span></div>
+      <div class="eq-l" id="eql2"></div>
+    </div>
+    <style>
+      [data-composition-id="editorial-questions"]{position:absolute;inset:0;font-family:"Be Vietnam Pro",sans-serif}
+      [data-composition-id="editorial-questions"] .eq-wrap{position:absolute;inset:0;will-change:transform,filter}
+      [data-composition-id="editorial-questions"] .eq-tag{position:absolute;top:240px;left:110px;font-family:"JetBrains Mono",monospace;font-size:22px;letter-spacing:0.28em;color:#A89BA1;text-transform:uppercase;opacity:0}
+      [data-composition-id="editorial-questions"] .eq-tag .a{color:#E10E1F}
+      [data-composition-id="editorial-questions"] .eq-divtop{position:absolute;top:296px;left:110px;right:110px;height:1px;background:#E10E1F;transform-origin:left;transform:scaleX(0)}
+      [data-composition-id="editorial-questions"] .eq-q{position:absolute;left:110px;right:110px;display:flex;align-items:baseline;gap:30px;opacity:0;transform:translateX(-50px)}
+      [data-composition-id="editorial-questions"] #eqq1{top:420px} [data-composition-id="editorial-questions"] #eqq2{top:680px}
+      [data-composition-id="editorial-questions"] .qm{font-family:"JetBrains Mono",monospace;font-size:44px;font-weight:500;color:#E10E1F;flex:0 0 auto}
+      [data-composition-id="editorial-questions"] .qt{font-family:"Playfair Display",serif;font-style:italic;font-weight:700;font-size:84px;line-height:1.0;color:#FAF7F5}
+      [data-composition-id="editorial-questions"] .qt .a{color:#E10E1F}
+      [data-composition-id="editorial-questions"] .eq-l{position:absolute;left:110px;width:520px;height:1px;background:rgba(250,247,245,0.25);transform-origin:left;transform:scaleX(0)}
+      [data-composition-id="editorial-questions"] #eql1{top:540px} [data-composition-id="editorial-questions"] #eql2{top:800px}
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      (function(){
+        const tl=gsap.timeline({paused:true});
+        const sc='[data-composition-id="editorial-questions"] ';
+        tl.to(sc+'#eqtag',{opacity:1,duration:0.3,ease:'power2.out'},0.1)
+          .to(sc+'#eqdivtop',{scaleX:1,duration:0.45,ease:'power3.out'},0.2)
+          .to(sc+'#eqq1',{opacity:1,x:0,duration:0.4,ease:'power3.out'},1.2)
+          .to(sc+'#eql1',{scaleX:1,duration:0.4,ease:'power3.out'},1.5)
+          .to(sc+'#eqq2',{opacity:1,x:0,duration:0.4,ease:'power3.out'},5.8)   // khớp lúc nói ý 2
+          .to(sc+'#eql2',{scaleX:1,duration:0.4,ease:'power3.out'},6.1);
+        tl.to(sc+'.eq-wrap',{y:-90,filter:'blur(18px)',opacity:0,duration:0.30,ease:'power2.in'},9.6);
+        tl.set({},{},9.9);
+        window.__timelines=window.__timelines||{};
+        window.__timelines["editorial-questions"]=tl;
+      })();
+    </script>
+  </div>
+</template>

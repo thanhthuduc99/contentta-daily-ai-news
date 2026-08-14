@@ -1,0 +1,137 @@
+<template id="scene4-solution-template">
+  <div data-composition-id="scene4-solution" data-start="0" data-width="1080" data-height="1920" data-duration="5.7">
+
+    <div class="s4-panel">
+      <div class="s4-whip">
+        <div class="s4-scan" id="s4-scan"></div>
+
+        <div class="s4-chip" id="s4-chip">
+          <span class="s4-chip-dot"></span>
+          <span>GIẢI PHÁP</span>
+        </div>
+
+        <!-- Step flow: 3 nodes connected by arrows -->
+        <div class="s4-flow">
+          <!-- Node 1: Personal folder -->
+          <div class="s4-node" id="s4-n1">
+            <div class="s4-node-icon">
+              <svg viewBox="0 0 56 56"><rect x="6" y="20" width="44" height="30" rx="6" fill="none" stroke="#FAF7F5" stroke-width="3"/><path d="M6 26 L6 18 Q6 12 12 12 L24 12 Q28 12 30 16 L34 20" fill="none" stroke="#FAF7F5" stroke-width="3"/></svg>
+            </div>
+            <div class="s4-node-label">📂 Personal</div>
+          </div>
+
+          <!-- Arrow 1→2 -->
+          <div class="s4-arrow" id="s4-a1">
+            <svg viewBox="0 0 80 24" width="80" height="24"><line x1="0" y1="12" x2="64" y2="12" stroke="#E10E1F" stroke-width="3" stroke-linecap="round"/><polygon points="64,4 80,12 64,20" fill="#E10E1F"/></svg>
+          </div>
+
+          <!-- Node 2: Create Folder -->
+          <div class="s4-node" id="s4-n2">
+            <div class="s4-node-icon s4-node-icon-add">
+              <svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="none" stroke="#E10E1F" stroke-width="3"/><line x1="28" y1="16" x2="28" y2="40" stroke="#E10E1F" stroke-width="3.5" stroke-linecap="round"/><line x1="16" y1="28" x2="40" y2="28" stroke="#E10E1F" stroke-width="3.5" stroke-linecap="round"/></svg>
+            </div>
+            <div class="s4-node-label">➕ Create Folder</div>
+          </div>
+
+          <!-- Arrow 2→3 -->
+          <div class="s4-arrow" id="s4-a2">
+            <svg viewBox="0 0 80 24" width="80" height="24"><line x1="0" y1="12" x2="64" y2="12" stroke="#E10E1F" stroke-width="3" stroke-linecap="round"/><polygon points="64,4 80,12 64,20" fill="#E10E1F"/></svg>
+          </div>
+
+          <!-- Node 3: Done -->
+          <div class="s4-node s4-node-hero" id="s4-n3">
+            <div class="s4-node-icon">
+              <svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="22" fill="none" stroke="#E10E1F" stroke-width="3"/><path d="M18 28 L25 35 L38 20" fill="none" stroke="#E10E1F" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="s4-node-label">✅ Xong!</div>
+          </div>
+        </div>
+
+        <div class="s4-result" id="s4-result">WORKFLOW NGĂN NẮP</div>
+      </div>
+    </div>
+
+    <style>
+      [data-composition-id="scene4-solution"] { position:absolute; inset:0 }
+      [data-composition-id="scene4-solution"] .s4-panel { position:absolute; top:0; left:0; width:1080px; height:1136px; overflow:hidden }
+      [data-composition-id="scene4-solution"] .s4-whip {
+        position:absolute; inset:0;
+        display:flex; flex-direction:column; align-items:center; justify-content:center;
+        gap:28px; padding:80px 60px 60px; box-sizing:border-box;
+        will-change:transform,filter;
+      }
+      [data-composition-id="scene4-solution"] .s4-scan {
+        position:absolute; top:35%; left:0; right:0; height:2px;
+        background:linear-gradient(90deg,transparent 0%,#E10E1F 35%,#FF2A3C 65%,transparent 100%);
+        opacity:0.85; transform:translateX(-100%);
+      }
+      [data-composition-id="scene4-solution"] .s4-chip {
+        display:inline-flex; align-items:center; gap:12px; padding:10px 22px;
+        border:1.5px solid rgba(225,14,31,0.55); background:rgba(7,4,9,0.7); border-radius:8px;
+        font-family:"Plus Jakarta Sans",sans-serif; font-weight:700; font-size:20px;
+        letter-spacing:0.22em; color:#FAF7F5; opacity:0;
+      }
+      [data-composition-id="scene4-solution"] .s4-chip-dot { width:10px; height:10px; border-radius:50%; background:#E10E1F; box-shadow:0 0 14px rgba(225,14,31,0.9) }
+      [data-composition-id="scene4-solution"] .s4-flow {
+        display:flex; align-items:center; gap:6px; flex-wrap:wrap; justify-content:center;
+      }
+      [data-composition-id="scene4-solution"] .s4-node {
+        display:flex; flex-direction:column; align-items:center; gap:8px;
+        padding:18px 22px; background:rgba(13,6,12,0.85);
+        border:2px solid rgba(250,247,245,0.3); border-radius:18px;
+        box-shadow:0 8px 24px rgba(0,0,0,0.5);
+        opacity:0; transform:scale(0.7) translateY(30px);
+      }
+      [data-composition-id="scene4-solution"] .s4-node-hero { border-color:#E10E1F; background:rgba(35,4,8,0.85); box-shadow:0 0 32px rgba(225,14,31,0.35),0 8px 24px rgba(0,0,0,0.5) }
+      [data-composition-id="scene4-solution"] .s4-node-icon { width:72px; height:72px }
+      [data-composition-id="scene4-solution"] .s4-node-icon svg { width:100%; height:100% }
+      [data-composition-id="scene4-solution"] .s4-node-label { font-family:"Be Vietnam Pro",sans-serif; font-weight:700; font-size:24px; color:#FAF7F5; text-align:center; white-space:nowrap }
+      [data-composition-id="scene4-solution"] .s4-arrow { opacity:0; transform:scaleX(0); transform-origin:left center }
+      [data-composition-id="scene4-solution"] .s4-result {
+        font-family:"Be Vietnam Pro",sans-serif; font-weight:700; font-size:52px;
+        color:#FAF7F5; letter-spacing:-0.02em;
+        text-shadow:0 4px 0 #070409,0 0 28px rgba(225,14,31,0.4),0 12px 28px rgba(0,0,0,0.6);
+        opacity:0; transform:translateY(24px);
+      }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      (function(){
+        const tl = gsap.timeline({ paused: true });
+        const scope = '[data-composition-id="scene4-solution"] ';
+        const DUR = 5.7;
+
+        gsap.set(scope + ".s4-whip", { y:80, filter:"blur(20px)", opacity:0.4 });
+        tl.to(scope + ".s4-whip", { y:0, filter:"blur(0px)", opacity:1, duration:0.55, ease:"power3.out" }, 0);
+
+        tl.fromTo(scope + "#s4-scan", {x:"-100%"}, {x:"100%", duration:0.85, ease:"power2.inOut"}, 0.05);
+        tl.to(scope + "#s4-chip", { opacity:1, duration:0.3, ease:"power2.out" }, 0.1);
+
+        // Node 1 "Personal" — synced ~0.5s ("bấm vô cái folder personal")
+        tl.to(scope + "#s4-n1", { opacity:1, scale:1, y:0, duration:0.4, ease:"back.out(2.0)" }, 0.4);
+
+        // Arrow 1→2 draws
+        tl.to(scope + "#s4-a1", { opacity:1, scaleX:1, duration:0.35, ease:"power3.out" }, 1.0);
+
+        // Node 2 "Create Folder" — synced ~1.6s ("create folder")
+        tl.to(scope + "#s4-n2", { opacity:1, scale:1, y:0, duration:0.4, ease:"back.out(2.0)" }, 1.4);
+
+        // Arrow 2→3 draws
+        tl.to(scope + "#s4-a2", { opacity:1, scaleX:1, duration:0.35, ease:"power3.out" }, 2.2);
+
+        // Node 3 "Xong!" — hero node with glow
+        tl.to(scope + "#s4-n3", { opacity:1, scale:1, y:0, duration:0.45, ease:"back.out(2.5)" }, 2.6);
+        // Hero glow pulse
+        tl.to(scope + "#s4-n3", { boxShadow:"0 0 60px rgba(225,14,31,0.6),0 8px 24px rgba(0,0,0,0.5)", duration:0.5, yoyo:true, repeat:1, ease:"sine.inOut" }, 3.2);
+
+        // Result text
+        tl.to(scope + "#s4-result", { opacity:1, y:0, duration:0.42, ease:"back.out(1.8)" }, 3.8);
+
+        tl.set({}, {}, DUR);
+        window.__timelines = window.__timelines || {};
+        window.__timelines["scene4-solution"] = tl;
+      })();
+    </script>
+  </div>
+</template>

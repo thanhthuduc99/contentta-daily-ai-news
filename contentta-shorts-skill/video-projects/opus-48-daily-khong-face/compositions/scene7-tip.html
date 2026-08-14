@@ -1,0 +1,47 @@
+<template id="s7-tip-template">
+  <div data-composition-id="s7-tip" data-start="0" data-width="1080" data-height="1920" data-duration="10.52">
+    <div class="tp-wrap">
+      <div class="tp-qmark" id="tpqm">&ldquo;</div>
+      <div class="tp-tag" id="tptag">MẸO DÙNG</div>
+      <div class="tp-head">
+        <span class="ln" id="tpl1">Bảo nó <span class="a">PHẢI</span> làm gì</span>
+        <span class="ln" id="tpl2">đừng bảo <span class="a">ĐỪNG</span> làm gì</span>
+      </div>
+      <div class="tp-div" id="tpdiv"></div>
+      <div class="tp-sub" id="tpsub">+ luôn cho nó biết lý do</div>
+    </div>
+    <style>
+      [data-composition-id="s7-tip"]{position:absolute;inset:0;font-family:"Be Vietnam Pro",sans-serif}
+      [data-composition-id="s7-tip"] .tp-wrap{position:absolute;inset:0;will-change:transform,filter}
+      [data-composition-id="s7-tip"] .tp-qmark{position:absolute;top:300px;left:90px;font-family:"Playfair Display",serif;font-style:italic;font-weight:700;font-size:280px;line-height:0.7;color:#E10E1F;opacity:0;transform:scale(0.6) rotate(-6deg)}
+      [data-composition-id="s7-tip"] .tp-tag{position:absolute;top:360px;right:110px;font-family:"JetBrains Mono",monospace;font-size:24px;letter-spacing:0.32em;color:#A89BA1;text-transform:uppercase;opacity:0}
+      [data-composition-id="s7-tip"] .tp-head{position:absolute;top:560px;left:110px;right:110px;display:flex;flex-direction:column;gap:18px;font-weight:700;font-size:66px;line-height:1.14;letter-spacing:-0.015em;color:#FAF7F5}
+      [data-composition-id="s7-tip"] .tp-head .ln{display:block;opacity:0;transform:translateY(28px);filter:blur(10px)}
+      [data-composition-id="s7-tip"] .tp-head .a{color:#E10E1F;text-shadow:0 0 30px rgba(225,14,31,0.45)}
+      [data-composition-id="s7-tip"] .tp-div{position:absolute;top:830px;left:110px;width:360px;height:1px;background:#FAF7F5;transform-origin:left;transform:scaleX(0)}
+      [data-composition-id="s7-tip"] .tp-sub{position:absolute;top:870px;left:110px;right:110px;font-weight:600;font-size:40px;color:#A89BA1;opacity:0;transform:translateY(14px)}
+    </style>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <script>
+      (function(){
+        const tl=gsap.timeline({paused:true});
+        const sc='[data-composition-id="s7-tip"] ';
+        const DUR=10.25;
+        // "Còn một mẹo nhỏ" Còn 72.3 → local 0.45
+        tl.to(sc+'#tpqm',{opacity:1,scale:1,rotation:0,duration:0.5,ease:'back.out(1.5)'},0.6)
+          .to(sc+'#tptag',{opacity:1,duration:0.3,ease:'power2.out'},0.9)
+          // "Hãy bảo nó phải làm gì" 74.8–75.2 → local 2.95
+          .to(sc+'#tpl1',{opacity:1,y:0,filter:'blur(0px)',duration:0.5,ease:'power3.out'},2.9)
+          // "đừng chỉ bảo nó đừng làm gì" 76.5 → local 4.65
+          .to(sc+'#tpl2',{opacity:1,y:0,filter:'blur(0px)',duration:0.5,ease:'power3.out'},4.6)
+          .to(sc+'#tpdiv',{scaleX:1,duration:0.45,ease:'power3.out'},5.4)
+          // "luôn cho nó biết lý do" 78.6–79.6 → local 6.75
+          .to(sc+'#tpsub',{opacity:1,y:0,duration:0.46,ease:'power3.out'},6.8);
+        tl.to(sc+'.tp-wrap',{y:-80,filter:'blur(16px)',opacity:0,duration:0.3,ease:'power2.in'},DUR-0.34);
+        tl.set({},{},DUR);
+        window.__timelines=window.__timelines||{};
+        window.__timelines["s7-tip"]=tl;
+      })();
+    </script>
+  </div>
+</template>

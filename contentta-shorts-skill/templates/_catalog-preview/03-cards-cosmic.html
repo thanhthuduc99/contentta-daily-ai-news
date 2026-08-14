@@ -1,0 +1,64 @@
+<!doctype html>
+<!--
+  03 — 3 THẺ (cosmic) | use-case: liệt kê 3 ý / tính năng
+  KEYWORDS: 3 card cascade · SVG icon · orbital bg · slide-in stagger · accent hero card
+            · karaoke caption · whip exit | 1080×1920 dọc
+-->
+<html lang="vi"><head><meta charset="UTF-8"/>
+<title>03 · 3 Thẻ Cosmic</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:100vw;height:100vh;overflow:hidden;background:#000;color:#FAF7F5;display:flex;align-items:center;justify-content:center;font-family:"Plus Jakarta Sans",sans-serif}
+  .stage{width:1080px;height:1920px;position:relative;overflow:hidden;transform-origin:center;background:#070409;flex:0 0 auto}
+  .nebula{position:absolute;inset:-200px;background:radial-gradient(ellipse 60% 40% at 50% 24%,rgba(225,14,31,0.16),rgba(90,4,16,0.10) 40%,transparent 72%),radial-gradient(ellipse 70% 50% at 50% 22%,#140711,#0b0410 55%,#070409 90%)}
+  .orbit{position:absolute;top:300px;left:50%;width:760px;height:760px;margin:-380px 0 0 -380px;border-radius:50%;border:1px solid rgba(225,14,31,0.22)}
+  .chip{position:absolute;top:250px;left:50%;transform:translateX(-50%);display:inline-flex;align-items:center;gap:10px;padding:9px 20px;border:1.5px solid rgba(225,14,31,0.6);background:rgba(7,4,9,0.7);border-radius:999px;font-weight:600;font-size:20px;letter-spacing:0.22em;white-space:nowrap;opacity:0}
+  .chip i{width:9px;height:9px;border-radius:50%;background:#E10E1F;box-shadow:0 0 12px rgba(225,14,31,0.9)}
+  .title{position:absolute;top:340px;left:0;right:0;text-align:center;font-family:"Be Vietnam Pro",sans-serif;font-weight:800;font-size:80px;letter-spacing:-0.03em;opacity:0}
+  .title .a{color:#E10E1F}
+  .cards{position:absolute;top:520px;left:90px;right:90px;display:flex;flex-direction:column;gap:24px}
+  .card{display:flex;align-items:center;gap:28px;padding:30px 34px;border:1.5px solid rgba(250,247,245,0.14);background:rgba(20,9,17,0.6);border-radius:22px;opacity:0;transform:translateX(-80px)}
+  .card.hero{border-color:rgba(225,14,31,0.7);background:rgba(60,6,16,0.5);box-shadow:0 0 40px rgba(225,14,31,0.2)}
+  .ic{width:74px;height:74px;flex:0 0 auto;border-radius:16px;background:rgba(225,14,31,0.14);display:flex;align-items:center;justify-content:center}
+  .ic svg{width:42px;height:42px}
+  .ct{font-family:"Be Vietnam Pro",sans-serif;font-weight:700;font-size:48px;color:#FAF7F5}
+  .cd{font-weight:500;font-size:26px;color:#A89BA1;margin-top:4px}
+  .caption{position:absolute;bottom:300px;left:0;right:0;text-align:center;padding:0 70px;font-family:"Be Vietnam Pro",sans-serif;font-weight:700;font-size:52px;line-height:1.16;letter-spacing:-0.01em}
+  .caption .cw{display:inline-block;color:rgba(250,247,245,0.45);text-shadow:-2px -2px 0 #070409,2px -2px 0 #070409,-2px 2px 0 #070409,2px 2px 0 #070409,0 5px 12px rgba(0,0,0,0.6)}
+  .face{position:absolute;bottom:0;left:0;right:0;height:200px;background:linear-gradient(0deg,rgba(225,14,31,0.06),transparent);border-top:1px solid rgba(225,14,31,0.25)}
+  .face::after{content:"▮ VÙNG MẶT NGƯỜI";position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-size:15px;letter-spacing:0.4em;color:rgba(168,155,161,0.5)}
+</style></head><body>
+<div class="stage" id="stage">
+  <div class="nebula"></div><div class="orbit" id="orbit"></div>
+  <div class="chip" id="chip"><i></i><span>AGENT · CONTENTTA</span></div>
+  <div class="title" id="title">AGENT <span class="a">LÀM GÌ?</span></div>
+  <div class="cards">
+    <div class="card" id="c1"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#E10E1F" stroke-width="2"><path d="M4 6h16M4 12h12M4 18h8"/></svg></div><div><div class="ct">Viết content</div><div class="cd">Bài đăng, kịch bản, caption</div></div></div>
+    <div class="card hero" id="c2"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#E10E1F" stroke-width="2"><polygon points="6 4 20 12 6 20 6 4"/></svg></div><div><div class="ct">Dựng video</div><div class="cd">Cắt, ghép, thêm phụ đề</div></div></div>
+    <div class="card" id="c3"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#E10E1F" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><div><div class="ct">Trả tin nhắn</div><div class="cd">Chăm khách 24/7</div></div></div>
+  </div>
+  <div class="caption" id="cap"><span class="cw">Ba</span> <span class="cw">việc</span> <span class="cw">agent</span> <span class="cw">làm</span> <span class="cw">mỗi</span> <span class="cw">ngày</span></div>
+  <div class="face"></div>
+</div>
+<script>
+function fit(){document.getElementById('stage').style.transform='scale('+Math.min(innerWidth/1080,innerHeight/1920)+')'}
+addEventListener('resize',fit);fit();
+gsap.to('#orbit',{rotation:360,duration:30,ease:'none',repeat:-1,transformOrigin:'50% 50%'});
+const cw=gsap.utils.toArray('#cap .cw');
+const tl=gsap.timeline({repeat:-1,repeatDelay:0.4});
+tl.to('#chip',{opacity:1,duration:0.22,ease:'power2.out'},0)
+  .to('#title',{opacity:1,duration:0.30,ease:'power2.out'},0.18)
+  .to('#c1',{opacity:1,x:0,duration:0.36,ease:'power3.out'},0.40)
+  .to('#c2',{opacity:1,x:0,duration:0.36,ease:'power3.out'},0.58)
+  .to('#c2',{x:6,duration:0.04,yoyo:true,repeat:3,ease:'power1.inOut'},0.94)
+  .to('#c3',{opacity:1,x:0,duration:0.36,ease:'power3.out'},0.76);
+cw.forEach((w,i)=>tl.to(w,{color:'#FAF7F5',duration:0.10,ease:'power2.out'},1.10+i*0.13));
+tl.to(['.cards','#title','#chip'],{y:'-=60',opacity:0,filter:'blur(14px)',duration:0.28,ease:'power2.in'},2.6)
+  .to('#cap',{opacity:0,duration:0.22,ease:'power2.in'},2.65)
+  .set(['#c1','#c2','#c3'],{opacity:0,x:-80},3.05)
+  .set('.cards',{y:0,opacity:1,filter:'blur(0px)'},3.05)
+  .set(['#title','#chip'],{y:0,opacity:0,filter:'blur(0px)'},3.05)
+  .set('#cap',{opacity:1},3.05).set(cw,{color:'rgba(250,247,245,0.45)'},3.05);
+</script></body></html>

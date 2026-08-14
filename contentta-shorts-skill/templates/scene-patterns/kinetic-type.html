@@ -1,0 +1,236 @@
+<template id="scene2-kinetic-template">
+  <div
+    data-composition-id="scene2-kinetic"
+    data-start="0"
+    data-width="1080"
+    data-height="1920"
+    data-duration="4"
+  >
+    <div class="s2-whip-wrap">
+      <div class="s2-scan" id="s2-scan"></div>
+
+      <div class="s2-kicker" id="s2-kicker">
+        <span class="s2-kicker-dot"></span>
+        <span>BẠN ĐANG MẤT BAO NHIÊU GIỜ?</span>
+      </div>
+
+      <div class="s2-big">
+        <span class="s2-counter" id="s2-counter">0</span><span class="s2-unit" id="s2-unit">h</span>
+      </div>
+
+      <div class="s2-sub" id="s2-sub">
+        mỗi tuần cho <span class="s2-sub-emph">việc lặp lại</span>
+      </div>
+
+      <div class="s2-stamp" id="s2-stamp">
+        <span>SỐ LIỆU TỪ TEAM CONTENTTA</span>
+        <span class="s2-underline" id="s2-underline"></span>
+      </div>
+    </div>
+
+    <style>
+      [data-composition-id="scene2-kinetic"] {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+      }
+      [data-composition-id="scene2-kinetic"] .s2-whip-wrap {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 36px;
+        padding: 140px 140px;
+        box-sizing: border-box;
+        will-change: transform, filter;
+      }
+      [data-composition-id="scene2-kinetic"] .s2-scan {
+        position: absolute;
+        top: 42%;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          transparent 0%,
+          #E10E1F 35%,
+          #FF2A3C 65%,
+          transparent 100%
+        );
+        opacity: 0.85;
+        transform: translateX(-100%);
+      }
+      [data-composition-id="scene2-kinetic"] .s2-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 11px 22px;
+        border: 1.5px solid rgba(225, 14, 31, 0.55);
+        background: rgba(7, 4, 9, 0.7);
+        border-radius: 8px;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 600;
+        font-size: 22px;
+        letter-spacing: 0.16em;
+        color: #E10E1F;
+        opacity: 0;
+      }
+      [data-composition-id="scene2-kinetic"] .s2-kicker-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #E10E1F;
+        box-shadow: 0 0 12px rgba(225, 14, 31, 0.85);
+      }
+      [data-composition-id="scene2-kinetic"] .s2-big {
+        display: flex;
+        align-items: baseline;
+        gap: 16px;
+        color: #FAF7F5;
+        font-family: "Be Vietnam Pro", sans-serif;
+        font-weight: 700;
+        font-size: 240px;
+        line-height: 0.9;
+        letter-spacing: -0.04em;
+        font-variant-numeric: tabular-nums;
+        text-shadow: 0 4px 0 #070409, 0 10px 28px rgba(0, 0, 0, 0.6);
+      }
+      [data-composition-id="scene2-kinetic"] .s2-unit {
+        font-size: 140px;
+        color: #E10E1F;
+        opacity: 0;
+        transform: scale(0);
+      }
+      [data-composition-id="scene2-kinetic"] .s2-sub {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 500;
+        font-size: 32px;
+        color: #FAF7F5;
+        text-align: center;
+        clip-path: inset(0 100% 0 0);
+      }
+      [data-composition-id="scene2-kinetic"] .s2-sub-emph {
+        color: #E10E1F;
+        font-weight: 700;
+      }
+      [data-composition-id="scene2-kinetic"] .s2-stamp {
+        position: relative;
+        margin-top: 12px;
+        font-family: "Plus Jakarta Sans", sans-serif;
+        font-weight: 600;
+        font-size: 18px;
+        letter-spacing: 0.24em;
+        color: #A89BA1;
+        clip-path: inset(0 100% 0 0);
+      }
+      [data-composition-id="scene2-kinetic"] .s2-underline {
+        position: absolute;
+        left: 0;
+        bottom: -8px;
+        height: 2px;
+        width: 100%;
+        background: #E10E1F;
+        transform: scaleX(0);
+        transform-origin: left center;
+      }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      (function () {
+        const tl = gsap.timeline({ paused: true });
+        const scope = '[data-composition-id="scene2-kinetic"] ';
+        const DUR = 4;
+        const counter = { val: 0 };
+        const el = document.querySelector(scope + ".s2-counter");
+
+        // Entry whip
+        gsap.set(scope + ".s2-whip-wrap", {
+          y: 120, filter: "blur(24px)", opacity: 0.35,
+        });
+        tl.to(
+          scope + ".s2-whip-wrap",
+          { y: 0, filter: "blur(0px)", opacity: 1, duration: 0.6, ease: "power3.out" },
+          0,
+        );
+
+        // Scan line sweep
+        tl.fromTo(
+          scope + "#s2-scan",
+          { x: "-100%" },
+          { x: "100%", duration: 0.85, ease: "power2.inOut" },
+          0.1,
+        );
+
+        // Kicker fade in
+        tl.to(
+          scope + "#s2-kicker",
+          { opacity: 1, duration: 0.32, ease: "power2.out" },
+          0.15,
+        );
+
+        // Counter tween
+        tl.to(
+          counter,
+          {
+            val: 47,
+            duration: 0.7,
+            ease: "power2.out",
+            snap: { val: 1 },
+            onUpdate: function () {
+              if (el) el.textContent = Math.round(counter.val);
+            },
+          },
+          0.5,
+        );
+
+        // Unit "h" pops in
+        tl.to(
+          scope + "#s2-unit",
+          { opacity: 1, scale: 1, duration: 0.32, ease: "back.out(3)" },
+          1.15,
+        );
+
+        // Sub-line clip-path reveal
+        tl.to(
+          scope + "#s2-sub",
+          { clipPath: "inset(0 0% 0 0)", duration: 0.5, ease: "power3.out" },
+          1.45,
+        );
+
+        // Stamp reveal + underline
+        tl.to(
+          scope + "#s2-stamp",
+          { clipPath: "inset(0 0% 0 0)", duration: 0.42, ease: "power3.out" },
+          1.95,
+        );
+        tl.to(
+          scope + "#s2-underline",
+          { scaleX: 1, duration: 0.34, ease: "power2.out" },
+          2.3,
+        );
+
+        // Hold + subtle pulse on counter
+        tl.to(
+          scope + ".s2-big",
+          { scale: 1.02, duration: 0.6, ease: "sine.inOut", yoyo: true, repeat: 1 },
+          2.4,
+        );
+
+        // Exit whip
+        tl.to(
+          scope + ".s2-whip-wrap",
+          { y: -100, filter: "blur(20px)", opacity: 0, duration: 0.3, ease: "power2.in" },
+          DUR - 0.3,
+        );
+
+        tl.set({}, {}, DUR);
+
+        window.__timelines = window.__timelines || {};
+        window.__timelines["scene2-kinetic"] = tl;
+      })();
+    </script>
+  </div>
+</template>

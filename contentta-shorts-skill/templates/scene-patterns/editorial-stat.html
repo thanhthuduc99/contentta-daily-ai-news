@@ -1,0 +1,46 @@
+<!--
+  PATTERN: editorial-stat (EDITORIAL)  ·  face: BOTTOM
+  KEYWORDS: header mono + hairline · số % khổng lồ Playfair italic count-up · label serif · footnote
+  DÙNG KHI: nhấn 1 chỉ số kiểu tạp chí ("47% chi phí tiết kiệm"). count-up tween chạy theo lời.
+  CUSTOMIZE: số đích trong counter tween (onUpdate), label, footnote. FONT: Playfair + JetBrains Mono + Be Vietnam Pro.
+-->
+<template id="editorial-stat-template">
+  <div data-composition-id="editorial-stat" data-start="0" data-width="1080" data-height="1920" data-duration="7.0">
+    <div class="es-wrap">
+      <div class="es-head" id="eshead"><span>CHỈ SỐ <span class="a">·</span> 01</span><span>NGUỒN <span class="a">·</span> 2026</span></div>
+      <div class="es-dvt" id="esdvt"></div>
+      <div class="es-stat" id="esstat">0%</div>
+      <div class="es-label" id="eslabel">nhãn chỉ số</div>
+      <div class="es-foot" id="esfoot">ghi chú nguồn / phạm vi</div>
+    </div>
+    <style>
+      [data-composition-id="editorial-stat"]{position:absolute;inset:0;font-family:"Be Vietnam Pro",sans-serif}
+      [data-composition-id="editorial-stat"] .es-wrap{position:absolute;inset:0;will-change:transform,filter}
+      [data-composition-id="editorial-stat"] .es-head{position:absolute;top:300px;left:110px;right:110px;display:flex;justify-content:space-between;align-items:center;font-family:"JetBrains Mono",monospace;font-size:18px;letter-spacing:0.3em;color:#A89BA1;text-transform:uppercase;opacity:0}
+      [data-composition-id="editorial-stat"] .es-head .a{color:#E10E1F}
+      [data-composition-id="editorial-stat"] .es-dvt{position:absolute;top:355px;left:110px;right:110px;height:1px;background:#E10E1F;transform-origin:left;transform:scaleX(0)}
+      [data-composition-id="editorial-stat"] .es-stat{position:absolute;top:460px;left:0;right:0;text-align:center;font-family:"Playfair Display",serif;font-style:italic;font-weight:700;font-size:340px;line-height:0.85;color:#E10E1F;text-shadow:0 0 70px rgba(225,14,31,0.4);opacity:0;transform:translateY(40px)}
+      [data-composition-id="editorial-stat"] .es-label{position:absolute;top:880px;left:0;right:0;text-align:center;font-family:"Playfair Display",serif;font-style:italic;font-weight:700;font-size:72px;color:#FAF7F5;opacity:0}
+      [data-composition-id="editorial-stat"] .es-foot{position:absolute;top:1000px;left:0;right:0;text-align:center;font-family:"JetBrains Mono",monospace;font-size:24px;letter-spacing:0.1em;color:#A89BA1;opacity:0}
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      (function(){
+        const tl=gsap.timeline({paused:true});
+        const sc='[data-composition-id="editorial-stat"] ';
+        const statEl=document.querySelector(sc+'#esstat');
+        const counter={v:0}, TARGET=47;   // đổi số đích
+        tl.to(sc+'#eshead',{opacity:1,duration:0.26,ease:'power2.out'},0)
+          .to(sc+'#esdvt',{scaleX:1,duration:0.40,ease:'power3.out'},0.06)
+          .to(sc+'#esstat',{opacity:1,y:0,duration:0.40,ease:'power3.out'},0.30)
+          .to(counter,{v:TARGET,duration:0.9,ease:'power2.out',onUpdate:function(){ if(statEl) statEl.textContent=Math.round(counter.v)+'%'; }},0.34)
+          .to(sc+'#eslabel',{opacity:1,duration:0.30,ease:'power2.out'},1.0)
+          .to(sc+'#esfoot',{opacity:1,duration:0.28,ease:'power2.out'},1.18);
+        tl.to(sc+'.es-wrap',{y:-80,filter:'blur(16px)',opacity:0,duration:0.28,ease:'power2.in'},6.7);
+        tl.set({},{},7.0);
+        window.__timelines=window.__timelines||{};
+        window.__timelines["editorial-stat"]=tl;
+      })();
+    </script>
+  </div>
+</template>

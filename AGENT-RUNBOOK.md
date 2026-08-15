@@ -210,11 +210,13 @@ Mỗi scene cần sửa:
 
 KHÔNG đụng face-wrapper (no-face mode — không có face).
 KHÔNG đụng ambient-bg, grain-overlay, music track (giữ nguyên).
-Music track ở `index.html` đang point vào `assets/music.mp3` — copy 1 file từ `contentta-shorts-skill/music/` về `assets/music.mp3` nếu thiếu:
+Music track ở `index.html` point vào `assets/music.mp3`. Repo KHÔNG kèm file nhạc (bản quyền) — tự bỏ nhạc của bạn vào `contentta-shorts-skill/music/` rồi copy sang:
 
 ```bash
-[ -f assets/music.mp3 ] || cp ../../contentta-shorts-skill/music/Alegend\ -\ Horizons*.mp3 assets/music.mp3
+[ -f assets/music.mp3 ] || cp ../../contentta-shorts-skill/music/*.mp3 assets/music.mp3
 ```
+
+Thiếu nhạc thì video vẫn render được, chỉ không có nhạc nền. Yêu cầu định dạng xem `contentta-shorts-skill/music/README.md`.
 
 Update tổng `data-duration` của root composition trong `index.html` = `Math.ceil(transcript.duration) + 1`.
 

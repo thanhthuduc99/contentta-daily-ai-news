@@ -21,3 +21,6 @@ Thumbs.db
 *.wav
 *.m4a
 *.mov
+
+# Ngoai le: video demo trong README
+!/docs/demo-daily-short.mp4

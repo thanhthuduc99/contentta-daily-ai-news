@@ -10,19 +10,41 @@
 //   được gộp vào dòng trước → không bị mồ côi.
 //
 // Usage:
-//   node generate-captions.mjs <transcript.json> <output.html> [replacements.json]
+//   node generate-captions.mjs <transcript.json> <output.html> [replacements.json] [--theme ivory]
 //   replacements.json (tuỳ chọn): map sửa lỗi Whisper, vd {"ComCore":"Claude","CloudCode":"Claude"}
+//   --theme ivory: hệ màu sáng hiện tại — chữ ink, từ đang đọc plum. Mặc định là orbital (nền tối).
 //
 // Output: captions.html — sub-composition Hyperframes (track captions), bottom 220px,
-//   Be Vietnam Pro 600 44px, trắng mờ → trắng sáng theo lời, KHÔNG đỏ.
+//   Be Vietnam Pro 600 44px, karaoke mờ → nổi theo lời, KHÔNG đỏ.
 
 import { readFileSync, writeFileSync } from 'node:fs';
 
-const [, , inPath, outPath, repPath] = process.argv;
+const argv = process.argv.slice(2);
+const themeIdx = argv.indexOf('--theme');
+const THEME = themeIdx >= 0 ? argv[themeIdx + 1] : 'orbital';
+const positional = argv.filter((a, i) => a !== '--theme' && argv[i - 1] !== '--theme');
+const [inPath, outPath, repPath] = positional;
 if (!inPath || !outPath) {
   console.error('Usage: node generate-captions.mjs <transcript.json> <output.html> [replacements.json]');
   process.exit(1);
 }
+
+const THEMES = {
+  // Nền tối Orbital: chữ trắng mờ → trắng sáng, viền đen cho nổi trên ảnh
+  orbital: {
+    dim: 'rgba(250, 247, 245, 0.55)',
+    bright: '#FAF7F5',
+    shadow: '-2px -2px 0 #070409,2px -2px 0 #070409,-2px 2px 0 #070409,2px 2px 0 #070409,0 0 6px rgba(0,0,0,0.55),0 4px 12px rgba(0,0,0,0.5)',
+  },
+  // Nền kem ivory: chữ ink mờ → từ đang đọc màu plum, quầng sáng thay cho viền đen
+  ivory: {
+    dim: 'rgba(23, 19, 13, 0.40)',
+    bright: '#4A3AE0',
+    shadow: '0 0 10px rgba(250,246,239,0.95),0 0 22px rgba(250,246,239,0.75),0 2px 6px rgba(250,246,239,0.9)',
+  },
+};
+const TH = THEMES[THEME];
+if (!TH) { console.error(`ERROR: theme khong hop le: ${THEME}. Chon orbital hoac ivory.`); process.exit(1); }
 
 const t = JSON.parse(readFileSync(inPath, 'utf8'));
 if (!Array.isArray(t.words) || !Array.isArray(t.segments)) {
@@ -86,18 +108,18 @@ const HTML = `<template id="captions-template">
       [data-composition-id="captions"] { position:absolute; inset:0; pointer-events:none; }
       [data-composition-id="captions"] .cap-stage { position:absolute; left:0; right:0; bottom:220px; height:0; pointer-events:none; }
       [data-composition-id="captions"] .cap-line-wrap { position:absolute; bottom:0; left:0; right:0; display:flex; justify-content:center; padding:0 80px; opacity:0; visibility:hidden; }
-      [data-composition-id="captions"] .cap-line { display:inline-block; max-width:920px; padding:0 8px; text-align:center; font-family:"Be Vietnam Pro",sans-serif; font-weight:600; font-size:44px; line-height:1.22; letter-spacing:0.012em; color:rgba(250,247,245,0.55); text-shadow:-2px -2px 0 #070409,2px -2px 0 #070409,-2px 2px 0 #070409,2px 2px 0 #070409,0 0 6px rgba(0,0,0,0.55),0 4px 12px rgba(0,0,0,0.5); white-space:normal; }
+      [data-composition-id="captions"] .cap-line { display:inline-block; max-width:920px; padding:0 8px; text-align:center; font-family:"Be Vietnam Pro",sans-serif; font-weight:600; font-size:44px; line-height:1.22; letter-spacing:0.012em; color:${TH.dim}; text-shadow:${TH.shadow}; white-space:normal; }
       [data-composition-id="captions"] .cap-word { display:inline-block; margin:0 4px; transform-origin:center center; will-change:color; }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="assets/vendor/gsap.min.js"></script>
     <script>
       (function () {
         const SEGMENTS = [
 ${SEGLIT}
         ];
         const COMP_DURATION = ${DUR};
-        const DIM = "rgba(250, 247, 245, 0.55)";
-        const BRIGHT = "#FAF7F5";
+        const DIM = "${TH.dim}";
+        const BRIGHT = "${TH.bright}";
         const stage = document.querySelector('[data-composition-id="captions"] #cap-stage');
         if (!stage) return;
         SEGMENTS.forEach(function (seg, segIdx) {

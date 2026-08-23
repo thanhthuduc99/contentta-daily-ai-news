@@ -1,0 +1,89 @@
+<template id="captions-template">
+  <div data-composition-id="captions" data-start="0" data-width="1080" data-height="1920" data-duration="48.67">
+    <link rel="stylesheet" href="assets/fonts/brand-fonts.css" />
+    <div class="cap-stage" id="cap-stage"></div>
+    <style>
+      [data-composition-id="captions"] { position:absolute; inset:0; pointer-events:none; }
+      [data-composition-id="captions"] .cap-stage { position:absolute; left:0; right:0; bottom:220px; height:0; pointer-events:none; }
+      [data-composition-id="captions"] .cap-line-wrap { position:absolute; bottom:0; left:0; right:0; display:flex; justify-content:center; padding:0 80px; opacity:0; visibility:hidden; }
+      [data-composition-id="captions"] .cap-line { display:inline-block; max-width:920px; padding:0 8px; text-align:center; font-family:"Be Vietnam Pro",sans-serif; font-weight:600; font-size:44px; line-height:1.22; letter-spacing:0.012em; color:rgba(23, 19, 13, 0.40); text-shadow:0 0 10px rgba(250,246,239,0.95),0 0 22px rgba(250,246,239,0.75),0 2px 6px rgba(250,246,239,0.9); white-space:normal; }
+      [data-composition-id="captions"] .cap-word { display:inline-block; margin:0 4px; transform-origin:center center; will-change:color; }
+    </style>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <script>
+      (function () {
+        const SEGMENTS = [
+          { words: [{w:"Anthropic",s:0,e:0.6},{w:"vừa",s:0.6,e:0.86},{w:"mở",s:0.86,e:1.12},{w:"chợ",s:1.12,e:1.36},{w:"plugin",s:1.36,e:1.68}] },
+          { words: [{w:"cho",s:1.68,e:2.04},{w:"Claude",s:2.04,e:2.28},{w:"Code",s:2.28,e:2.6}] },
+          { words: [{w:"Repo",s:3.32,e:3.32},{w:"tên",s:3.32,e:3.62},{w:"là",s:3.62,e:4.02},{w:"Claude",s:4.02,e:4.36},{w:"Plugins",s:4.36,e:4.76},{w:"Community",s:4.76,e:5.24}] },
+          { words: [{w:"822",s:6.06,e:6.54},{w:"sao",s:6.54,e:6.9},{w:"122",s:7.6,e:8.34},{w:"fork",s:8.34,e:8.64}] },
+          { words: [{w:"mới",s:9.18,e:9.3},{w:"đẩy",s:9.3,e:9.5},{w:"code",s:9.5,e:9.68},{w:"hôm",s:9.68,e:9.88},{w:"qua",s:9.88,e:10.1}] },
+          { words: [{w:"Nó",s:10.9,e:10.9},{w:"là",s:10.9,e:11.1},{w:"chỗ",s:11.1,e:11.32},{w:"gom",s:11.32,e:11.5},{w:"plugin",s:11.5,e:11.9}] },
+          { words: [{w:"do",s:11.9,e:12.2},{w:"cộng",s:12.2,e:12.42},{w:"đồng",s:12.42,e:12.56},{w:"viết",s:12.56,e:12.78}] },
+          { words: [{w:"dùng",s:13.4,e:13.4},{w:"được",s:13.4,e:13.6},{w:"cho",s:13.6,e:13.82},{w:"cả",s:13.82,e:14.08},{w:"Claude",s:14.08,e:14.34}] },
+          { words: [{w:"Code",s:14.34,e:14.68},{w:"lẫn",s:14.68,e:14.92},{w:"Claude",s:14.92,e:15.32},{w:"Cowork",s:15.32,e:15.7}] },
+          { words: [{w:"Bạn",s:16.64,e:16.64},{w:"cần",s:16.64,e:16.78},{w:"một",s:16.78,e:17.1},{w:"tính",s:17.1,e:17.14},{w:"năng",s:17.14,e:17.3}] },
+          { words: [{w:"mà",s:17.3,e:17.68},{w:"Claude",s:17.68,e:17.88},{w:"Code",s:17.88,e:18.12},{w:"chưa",s:18.12,e:18.32},{w:"có",s:18.32,e:18.8}] },
+          { words: [{w:"vào",s:19,e:19.18},{w:"đây",s:19.18,e:19.44},{w:"tìm",s:19.44,e:19.52},{w:"trước",s:19.52,e:19.76}] },
+          { words: [{w:"Đừng",s:20.38,e:20.38},{w:"ngồi",s:20.38,e:20.58},{w:"tự",s:20.58,e:20.78},{w:"viết",s:20.78,e:20.9},{w:"lại",s:20.9,e:21.1}] },
+          { words: [{w:"Có",s:21.72,e:21.84},{w:"ba",s:21.84,e:22.06},{w:"thứ",s:22.06,e:22.2},{w:"đáng",s:22.2,e:22.4},{w:"chú",s:22.4,e:22.6},{w:"ý",s:22.6,e:22.7}] },
+          { words: [{w:"Một",s:23.5,e:23.56},{w:"Repo",s:24.06,e:24.24},{w:"này",s:24.24,e:24.48},{w:"là",s:24.48,e:24.7},{w:"bản",s:24.7,e:24.84},{w:"chỉ",s:24.84,e:25.08},{w:"đọc",s:25.08,e:25.16}] },
+          { words: [{w:"Muốn",s:25.9,e:25.92},{w:"đăng",s:25.92,e:26.08},{w:"plugin",s:26.08,e:26.46},{w:"thì",s:26.46,e:26.68},{w:"nộp",s:26.68,e:26.86}] },
+          { words: [{w:"qua",s:26.86,e:27.02},{w:"form",s:27.02,e:27.28},{w:"riêng",s:27.28,e:27.48}] },
+          { words: [{w:"không",s:28,e:28.06},{w:"mở",s:28.06,e:28.24},{w:"pull",s:28.24,e:28.5},{w:"request",s:28.5,e:28.9}] },
+          { words: [{w:"Hai",s:29.36,e:29.76},{w:"giấy",s:30.32,e:30.36},{w:"phép",s:30.36,e:30.54},{w:"Apache",s:30.54,e:31},{w:"2",s:31,e:31.3}] },
+          { words: [{w:"0",s:31.3,e:31.74},{w:"dùng",s:32.36,e:32.36},{w:"cho",s:32.36,e:32.52},{w:"việc",s:32.52,e:32.72},{w:"kinh",s:32.72,e:32.9}] },
+          { words: [{w:"doanh",s:32.9,e:33},{w:"thoải",s:33,e:33.22},{w:"mái",s:33.22,e:33.8}] },
+          { words: [{w:"Ba",s:34.24,e:34.24},{w:"viết",s:34.8,e:34.8},{w:"bằng",s:34.8,e:34.96},{w:"Python",s:34.96,e:35.44}] },
+          { words: [{w:"cấu",s:35.9,e:35.92},{w:"trúc",s:35.92,e:36.06},{w:"đơn",s:36.06,e:36.28},{w:"giản",s:36.28,e:36.48}] },
+          { words: [{w:"đọc",s:37,e:37.02},{w:"một",s:37.02,e:37.2},{w:"buổi",s:37.2,e:37.36},{w:"là",s:37.36,e:37.56},{w:"hiểu",s:37.56,e:37.74}] },
+          { words: [{w:"Cài",s:38.54,e:38.54},{w:"thì",s:38.54,e:38.76},{w:"gõ",s:38.76,e:38.94},{w:"lệnh",s:38.94,e:39.1},{w:"plugin",s:39.1,e:39.46}] },
+          { words: [{w:"marketplace",s:39.46,e:40},{w:"add",s:40,e:40.38},{w:"trỏ",s:40.84,e:40.84},{w:"vào",s:40.84,e:41},{w:"Repo",s:41,e:41.28}] },
+          { words: [{w:"này",s:41.28,e:41.54},{w:"là",s:41.92,e:42.08},{w:"xong",s:42.08,e:42.24}] },
+          { words: [{w:"Link",s:42.9,e:42.9},{w:"mình",s:42.9,e:43.06},{w:"để",s:43.06,e:43.24},{w:"trong",s:43.24,e:43.4},{w:"phần",s:43.4,e:43.52},{w:"mô",s:43.52,e:43.72},{w:"tả",s:43.72,e:43.9}] },
+          { words: [{w:"Theo",s:44.82,e:44.88},{w:"dõi",s:44.88,e:45.06},{w:"Contentta",s:45.06,e:45.54},{w:"Daily",s:45.54,e:45.98},{w:"News",s:45.98,e:46.26}] },
+          { words: [{w:"để",s:46.26,e:46.66},{w:"không",s:46.66,e:46.86},{w:"bỏ",s:46.86,e:46.98},{w:"lỡ",s:46.98,e:47.18},{w:"tin",s:47.18,e:47.38}] },
+          { words: [{w:"AI",s:47.38,e:47.74},{w:"mỗi",s:47.74,e:47.92},{w:"ngày",s:47.92,e:48.1}] }
+        ];
+        const COMP_DURATION = 48.67;
+        const DIM = "rgba(23, 19, 13, 0.40)";
+        const BRIGHT = "#4A3AE0";
+        const stage = document.querySelector('[data-composition-id="captions"] #cap-stage');
+        if (!stage) return;
+        SEGMENTS.forEach(function (seg, segIdx) {
+          const wrap = document.createElement("div"); wrap.className = "cap-line-wrap"; wrap.id = "cap-seg-" + segIdx;
+          const line = document.createElement("div"); line.className = "cap-line";
+          seg.words.forEach(function (w, wIdx) {
+            const span = document.createElement("span"); span.className = "cap-word"; span.id = "cap-w-" + segIdx + "-" + wIdx; span.textContent = w.w; line.appendChild(span);
+          });
+          wrap.appendChild(line); stage.appendChild(wrap);
+        });
+        const tl = gsap.timeline({ paused: true });
+        const FADE_IN = 0.14, FADE_OUT = 0.06, PRE_ROLL = 0.10, SWAP_GUARD = 0.06, POST_HOLD = 0.18;
+        SEGMENTS.forEach(function (seg, segIdx) {
+          const wrapSel = '[data-composition-id="captions"] #cap-seg-' + segIdx;
+          const segStart = seg.words[0].s, segEnd = seg.words[seg.words.length - 1].e;
+          const nextSeg = SEGMENTS[segIdx + 1];
+          const nextStart = nextSeg ? nextSeg.words[0].s : COMP_DURATION + 1;
+          const naturalExit = segEnd + POST_HOLD, forcedExit = nextStart - PRE_ROLL - SWAP_GUARD - FADE_OUT;
+          const fadeOutAt = Math.max(segStart + 0.1, Math.min(naturalExit, forcedExit));
+          const fadeInAt = Math.max(segStart - PRE_ROLL, 0);
+          const hideAt = fadeOutAt + FADE_OUT + 0.02;
+          seg.words.forEach(function (w, wIdx) {
+            tl.set('[data-composition-id="captions"] #cap-w-' + segIdx + "-" + wIdx, { color: DIM }, fadeInAt);
+          });
+          tl.set(wrapSel, { visibility: "visible" }, fadeInAt);
+          tl.fromTo(wrapSel, { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: FADE_IN, ease: "power2.out" }, fadeInAt);
+          seg.words.forEach(function (w, wIdx) {
+            tl.to('[data-composition-id="captions"] #cap-w-' + segIdx + "-" + wIdx, { color: BRIGHT, duration: 0.10, ease: "power2.out" }, w.s);
+          });
+          tl.to(wrapSel, { opacity: 0, duration: FADE_OUT, ease: "power2.in" }, fadeOutAt);
+          tl.set(wrapSel, { visibility: "hidden" }, hideAt);
+        });
+        tl.set({}, {}, COMP_DURATION);
+        window.__timelines = window.__timelines || {};
+        window.__timelines["captions"] = tl;
+      })();
+    </script>
+  </div>
+</template>

@@ -71,8 +71,12 @@ js = js
   .replace(/window\.__timelines\['[^']+'\] = tl;/, `window.__timelines[${JSON.stringify(compId)}] = tl;`)
   .replace(/document\.fonts\.ready\.then\(\(\) => \{ window\.__READY = true; \}\);\s*/g, '');
 
+// Renderer capture tung composition rieng, khong thay <link> o index.html.
+// Khong nhung font + base css vao day thi chu roi ve font fallback trong video.
 const html = `<template id="${compId}-template">
   <div data-composition-id="${compId}" data-start="0" data-width="1080" data-height="1920" data-duration="${DUR}">
+    <link rel="stylesheet" href="assets/fonts/brand-fonts.css" />
+    <link rel="stylesheet" href="assets/base-vertical.css" />
 ${body.trimEnd()}
     <style>
 ${css.trim()}

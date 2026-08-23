@@ -103,6 +103,7 @@ const DUR = (t.duration ?? (segs.at(-1).at(-1).e + 0.5)).toFixed(2);
 
 const HTML = `<template id="captions-template">
   <div data-composition-id="captions" data-start="0" data-width="1080" data-height="1920" data-duration="${DUR}">
+    <link rel="stylesheet" href="assets/fonts/brand-fonts.css" />
     <div class="cap-stage" id="cap-stage"></div>
     <style>
       [data-composition-id="captions"] { position:absolute; inset:0; pointer-events:none; }

@@ -1,0 +1,21 @@
+Anthropic vừa mở chợ plugin cho Claude Code.
+
+Repo tên là claude plugins community. Tám trăm hai mươi hai sao. Một trăm hai mươi hai fork. Mới đẩy code hôm qua.
+
+Nó là chỗ gom plugin do cộng đồng viết, dùng được cho cả Claude Code lẫn Claude Cowork.
+
+Bạn cần một tính năng mà Claude Code chưa có, vào đây tìm trước. Đừng ngồi tự viết lại.
+
+Có ba thứ đáng chú ý.
+
+Một. Repo này là bản chỉ đọc. Muốn đăng plugin thì nộp qua form riêng, không mở pull request.
+
+Hai. Giấy phép Apache hai chấm không. Dùng cho việc kinh doanh thoải mái.
+
+Ba. Viết bằng Python, cấu trúc đơn giản, đọc một buổi là hiểu.
+
+Cài thì gõ lệnh plugin marketplace add, trỏ vào repo này, là xong.
+
+Link mình để trong phần mô tả.
+
+Theo dõi Contentta Daily News để không bỏ lỡ tin AI mỗi ngày.

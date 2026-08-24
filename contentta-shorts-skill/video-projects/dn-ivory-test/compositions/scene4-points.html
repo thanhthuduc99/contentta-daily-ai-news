@@ -1,0 +1,91 @@
+<template id="s4-points-template">
+  <div data-composition-id="s4-points" data-start="0" data-width="1080" data-height="1920" data-duration="18.16">
+    <link rel="stylesheet" href="assets/fonts/brand-fonts.css" />
+    <link rel="stylesheet" href="assets/base-vertical.css" />
+
+  <div class="content">
+    <div class="head">
+      <div class="eyebrow" style="--dot: var(--sage)">Đọc kỹ trước khi dùng</div>
+      <h2 class="headline sm">Ba thứ đáng chú ý</h2>
+    </div>
+
+    <div class="list">
+      <div class="card">
+        <div class="num tabnum">01</div>
+        <div class="sq sm sky"><img src="assets/emoji/page_facing_up.png" alt=""></div>
+        <div class="txt">
+          <p class="card-label">Repo này là bản chỉ đọc</p>
+          <p class="card-note">Nộp plugin qua form riêng, không mở pull request</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="num tabnum">02</div>
+        <div class="sq sm sage"><img src="assets/emoji/check_mark_button.png" alt=""></div>
+        <div class="txt">
+          <p class="card-label">Giấy phép Apache 2.0</p>
+          <p class="card-note">Dùng cho việc kinh doanh thoải mái</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="num tabnum">03</div>
+        <div class="sq sm lav"><img src="assets/emoji/gear.png" alt=""></div>
+        <div class="txt">
+          <p class="card-label">Viết bằng Python</p>
+          <p class="card-note">Cấu trúc đơn giản, đọc một buổi là hiểu</p>
+        </div>
+      </div>
+    </div>
+  </div>
+    <style>
+[data-composition-id="s4-points"] .content { align-items: stretch; justify-content: center; gap: 40px; }
+[data-composition-id="s4-points"] .head { display: flex; flex-direction: column; align-items: center; gap: 26px; }
+[data-composition-id="s4-points"] .eyebrow { opacity: 0; }
+[data-composition-id="s4-points"] /* .headline.sm 62px = 36 ký tự/dòng (đo thật) */
+  .headline { text-align: center; opacity: 0; }
+[data-composition-id="s4-points"] .list { display: flex; flex-direction: column; gap: 26px; margin-top: 12px; }
+[data-composition-id="s4-points"] .card {
+    display: flex; align-items: center; gap: 28px;
+    padding: 30px 34px;
+    opacity: 0;
+  }
+[data-composition-id="s4-points"] .card .txt { flex: 1; min-width: 0; }
+[data-composition-id="s4-points"] /* .card-label 34px = 48 ký tự · .card-note 26px = 66 ký tự (khung 732) */
+  .num {
+    flex: none; width: 52px;
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 44px; font-weight: 800; line-height: 1;
+    color: var(--ink-faint); text-align: right;
+  }
+    </style>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <script>
+      (function () {
+  const DUR = 18.16;
+  const tl = gsap.timeline({ paused: true });
+
+  // DS thuần: chỉ transform + opacity, ease (.22,1,.36,1), stagger 0.16
+  const EASE = 'power3.out';
+
+  tl.fromTo('[data-composition-id="s4-points"] .eyebrow',  { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .4, ease: EASE }, 0)
+    .fromTo('[data-composition-id="s4-points"] .headline', { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: .5, ease: EASE }, .14)
+    ;
+
+  // Card hien dung luc giong noi doc "Mot", "Hai", "Ba"
+  // (moc tuyet doi 23.50 / 29.36 / 34.24 tru diem bat dau scene 20.38)
+  const SC = '[data-composition-id="s4-points"] ';
+  [3.12, 8.98, 13.86].forEach((at, i) => {
+    const n = i + 1;
+    tl.fromTo(SC + `.card:nth-of-type(${n})`,       { opacity: 0, y: 42 }, { opacity: 1, y: 0, duration: .55, ease: EASE }, at)
+      .fromTo(SC + `.card:nth-of-type(${n}) .sq`,   { scale: .82 },        { scale: 1, duration: .45, ease: 'back.out(1.6)' }, at + .08);
+  });
+
+  tl.set({}, {}, DUR);
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines["s4-points"] = tl;
+      })();
+    </script>
+  </div>
+</template>

@@ -1,0 +1,53 @@
+<template id="s5-cmd-template">
+  <div data-composition-id="s5-cmd" data-start="0" data-width="1080" data-height="1920" data-duration="4.36">
+    <link rel="stylesheet" href="assets/fonts/brand-fonts.css" />
+    <link rel="stylesheet" href="assets/base-vertical.css" />
+
+  <div class="content">
+    <div class="head">
+      <div class="eyebrow" style="--dot: var(--sage)">Cài trong 10 giây</div>
+      <h2 class="headline sm">Một lệnh là xong</h2>
+    </div>
+
+    <div class="term">
+      <div class="term-bar"><i></i><i></i><i></i>&nbsp;&nbsp;bash</div>
+      <pre><span class="row"><span class="tok-dim">&gt;</span> /plugin <span class="tok-key">marketplace add</span></span>
+<span class="row">    <span class="tok-str">anthropics/claude-plugins-community</span></span>
+<span class="row"></span>
+<span class="row"><span class="tok-ok">ok</span> <span class="tok-dim">marketplace added</span></span></pre>
+    </div>
+
+    <p class="cap">Gõ /plugin để xem danh sách</p>
+  </div>
+    <style>
+[data-composition-id="s5-cmd"] .content { align-items: center; justify-content: center; gap: 42px; }
+[data-composition-id="s5-cmd"] .head { display: flex; flex-direction: column; align-items: center; gap: 26px; }
+[data-composition-id="s5-cmd"] .eyebrow { opacity: 0; }
+[data-composition-id="s5-cmd"] .headline { text-align: center; opacity: 0; }
+[data-composition-id="s5-cmd"] .term { width: 936px; opacity: 0; }
+[data-composition-id="s5-cmd"] /* .term pre 28px mono = 56 cột (đo thật). Không viết dòng dài hơn. */
+  .term pre .row { display: block; opacity: 0; }
+[data-composition-id="s5-cmd"] .cap { text-align: center; font-size: 27px; color: var(--ink-soft); opacity: 0; }
+    </style>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <script>
+      (function () {
+  const DUR = 4.36;
+  const tl = gsap.timeline({ paused: true });
+  const EASE = 'power3.out';
+
+  tl.fromTo('[data-composition-id="s5-cmd"] .eyebrow',  { opacity: 0, y: 18 },             { opacity: 1, y: 0, duration: .4, ease: EASE }, 0)
+    .fromTo('[data-composition-id="s5-cmd"] .headline', { opacity: 0, y: 26 },             { opacity: 1, y: 0, duration: .5, ease: EASE }, .14)
+    .fromTo('[data-composition-id="s5-cmd"] .term',     { opacity: 0, y: 40, scale: .97 }, { opacity: 1, y: 0, scale: 1, duration: .6, ease: EASE }, .44)
+    // Dòng lệnh hiện lần lượt như đang gõ, nhưng bằng opacity nên vẫn deterministic
+    .fromTo('[data-composition-id="s5-cmd"] .term pre .row', { opacity: 0, x: -14 },       { opacity: 1, x: 0, duration: .26, ease: 'power2.out', stagger: .24 }, .78)
+    .fromTo('[data-composition-id="s5-cmd"] .cap',      { opacity: 0, y: 20 },             { opacity: 1, y: 0, duration: .4, ease: EASE }, 2.10);
+
+  tl.set({}, {}, DUR);
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines["s5-cmd"] = tl;
+      })();
+    </script>
+  </div>
+</template>

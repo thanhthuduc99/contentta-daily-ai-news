@@ -28,15 +28,21 @@ npx hyperframes doctor            # check env: browser
 - Thiếu browser → `npx hyperframes browser` (hoặc `npx playwright install chromium`). Fail khác → log notes.md + exit theo Error handling.
 - **Network:** pipeline chỉ cần `api.openai.com` (TTS+Whisper) + `github.com` (push) + Google Fonts. Nếu OpenAI bị chặn → xem mục Fallback cuối file.
 
-## Step 1 — Scaffold project từ template opus-48-daily-khong-face
+## Step 1 — Scaffold project từ template daily-ivory-vertical
 
 ```bash
-cp -r contentta-shorts-skill/video-projects/opus-48-daily-khong-face $PROJECT
+cp -r contentta-shorts-skill/video-projects/daily-ivory-vertical $PROJECT
 cd $PROJECT
 rm -rf renders/* assets/voice.* assets/transcript-*.json
 rm -f assets/vo-script.txt.example assets/transcript-final.json.example
-mkdir -p renders/frames
+mkdir -p renders/frames assets/media
 ```
+
+Scaffold này dùng **hệ màu ivory hiện tại** (nền kem `#FAF6EF`, ink `#17130D`, plum `#4A3AE0`).
+Bản Orbital cũ (nền đen, đỏ) giữ ở `opus-48-daily-khong-face` để đối chiếu, không dùng nữa.
+
+Trong `compositions/` chỉ có sẵn `ambient-bg.html` và `grain-overlay.html`.
+Scene sinh từ template ở Step 7b.
 
 ## Step 2 — Lấy news source
 
@@ -54,6 +60,25 @@ Nếu Nate có video mới <72h, lấy transcript:
 VID=$(node -e 'const j=require("/tmp/yt.json"); console.log(j.items[0].videoId)')
 node ../../tools/fetch-yt-transcript.mjs $VID > /tmp/transcript-yt.txt 2>/dev/null || echo "(no transcript)" > /tmp/transcript-yt.txt
 ```
+
+## Step 2b — Lấy media thật từ link nguồn
+
+Sau khi chốt topic ở Step 3, chạy tool này trên link chính của topic (repo GitHub, blog post):
+
+```bash
+node ../../tools/fetch-media.mjs "<url>" --out assets/media
+```
+
+Trả JSON ra stdout, ghi file vào `assets/media/`:
+- `shot-viewport.png` — screenshot nguyên khung **16:9** (2560x1440). Template thu nhỏ cho vừa, **không cắt**.
+- `shot-full.png` — full page, dùng làm b-roll cuộn.
+- `og-image.png` + `images/img-NN.png` — ảnh có sẵn trong trang, thường là ảnh demo trong README.
+- `github` trong JSON — sao, fork, ngôn ngữ, license, ngày đẩy code. **Dùng số này, đừng bịa.**
+
+Cần phóng to một khối cụ thể thì thêm `--clip "<css selector>"`.
+
+Lưu ý: `tools/fetch-github-trending.mjs` đang trả `stars_total: null` (regex `octicon-star`
+không còn khớp DOM GitHub). Lấy số sao từ `fetch-media.mjs` vì nó đọc qua API GitHub.
 
 ## Step 3 — Reason 3 candidates → pick 1
 
@@ -198,15 +223,29 @@ Whisper transcribe audio (đọc phiên âm) → lời ra dạng phiên âm ("H�
 
 Mở `assets/transcript-final.json` đọc `segments[].start/end` và lấy boundary cho **4–6 scene theo form đã chọn ở Step 4**.
 
-Nguồn scene HTML — chọn theo nội dung, KHÔNG ép dùng đủ 8 file template cũ:
-- Scene có sẵn trong `compositions/` (copy từ opus-48): sửa text + timing, xoá file scene thừa không dùng
-- Pattern khác từ `../../contentta-shorts-skill/templates/scene-patterns/`: `big-number-reveal` (1 con số đinh), `editorial-questions` (đối lập 2 phe), `kinetic-type` (hook chữ lớn), `card-cascade` (liệt kê ngắn), `editorial-stat` (% count-up), `cta-supernova` (CTA cuối) — copy vào `compositions/`, đổi `data-composition-id` riêng
-- Map form → pattern: câu chuyện leo thang → kinetic-type + editorial-headline · demo tool → step-flow/card · trước-sau → big-number-reveal · đối lập → editorial-questions
+Scene sinh từ bộ template dọc ivory trong `../../templates-vertical-ivory/`
+(10 cái, bảng chọn trong `README.md` ở đó). Mỗi scene một lệnh:
 
-Mỗi scene cần sửa:
-- Text khớp ĐÚNG lời đang nói trong khoảng đó (reveal đúng lúc nói tới keyword)
-- `data-start` + `data-duration` trên scene container trong `index.html` khớp segment boundary
-- Xoá `<template>` + clip của scene không dùng khỏi `index.html`
+```bash
+node ../../../tools/template-to-scene.mjs   ../../templates-vertical-ivory/v01-title-card.html   compositions/scene1-title.html s1-title 6.04
+```
+
+Tool tự bỏ 4 lớp nền (ambient-bg lo), scope CSS và selector GSAP theo composition id,
+nhúng font + `base-vertical.css` vào từng scene, đổi đường dẫn asset sang `assets/`.
+
+Sau khi sinh, **sửa nội dung và canh lại timing ngay trong file scene**:
+- Text khớp ĐÚNG lời đang nói trong khoảng đó, giữ đúng giới hạn ký tự trong README template.
+- Scene nhiều mục (v03 grid, v06 workflow, v11 before-after): canh thời điểm từng mục
+  theo mốc giọng nói trong `transcript-final.json`. Đừng để stagger mặc định chạy hết
+  trong 1,5 giây rồi ngồi im 15 giây.
+- Ảnh thật trỏ vào `assets/media/` lấy từ Step 2b.
+- `data-start` + `data-duration` trên scene container trong `index.html` khớp segment boundary.
+
+Template là gợi ý. Nội dung không khớp cái nào thì tự dựng scene mới theo luật cứng
+trong `templates-vertical-ivory/README.md`.
+
+**Chống chồng lấn clip:** trừ 0.02 vào `data-duration` của mọi scene trừ scene cuối,
+nếu không lint báo `overlapping_clips_same_track` do sai số float.
 
 KHÔNG đụng face-wrapper (no-face mode — không có face).
 KHÔNG đụng ambient-bg, grain-overlay, music track (giữ nguyên).

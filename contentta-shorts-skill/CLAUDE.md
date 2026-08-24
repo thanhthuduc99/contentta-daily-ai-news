@@ -4,7 +4,7 @@ Skill **portable** để edit video ngắn brand Contentta với motion graphics
 
 **3 chế độ sản xuất** (chi tiết §3b):
 - **Face dọc 1080×1920** (mặc định) — talking-head, giọng thu thật → Whisper. Mẫu: `video-projects/claude-intro-doc`.
-- **No-face dọc 1080×1920** — "không mặt người" / bản tin / video tổng hợp, giọng **TTS tự sinh**. Mẫu: `video-projects/opus-48-daily-khong-face`.
+- **No-face dọc 1080×1920** — "không mặt người" / bản tin / video tổng hợp, giọng **TTS tự sinh**. Mẫu: `video-projects/daily-ivory-vertical` (hệ màu ivory hiện tại). Bản Orbital cũ giữ ở `opus-48-daily-khong-face` để đối chiếu, không dùng nữa.
 - **Landscape 1920×1080** — "edit video ngang" / intro YouTube, face FULL ↔ dock phải. Mẫu: `video-projects/intro-google-io-ngang`.
 
 > Đọc kèm: `WORKFLOW.md` (10 bước có lệnh), `scripts/README.md` (transcribe + cắt + gen caption), `MOTION_PHILOSOPHY.md` (gu thẩm mỹ — phần T1–T5 là legacy landscape, bỏ qua).
@@ -18,7 +18,9 @@ Skill **portable** để edit video ngắn brand Contentta với motion graphics
 3. **Speed 1.1x** mặc định (user nói chậm).
 4. **Tiếng Việt chuẩn**, không lẫn tiếng Anh, không thiếu chữ. Sửa lỗi Whisper qua `replacements.json`.
 5. **Short-form ≠ poster:** graphics nửa trên, mặt nửa dưới, caption strip đáy, pacing nhanh, chữ vừa phải.
-6. **Caption tách theo câu** (không gộp xuyên câu), trắng mờ→sáng, KHÔNG đỏ. Dùng `scripts/generate-captions.mjs`.
+6. **Caption tách theo câu** (không gộp xuyên câu), KHÔNG đỏ. Dùng `scripts/generate-captions.mjs`.
+   - Hệ ivory (mặc định cho daily news): `--theme ivory` — chữ ink `rgba(23,19,13,0.40)` → từ đang đọc plum `#4A3AE0`.
+   - Hệ Orbital cũ (nền tối): `--theme orbital` — trắng mờ → trắng sáng.
 7. **Giãn dòng** title khi dòng trên dấu nặng + dòng dưới dấu sắc (Ậ/Ớ) → line-height ~1.34.
 8. **YouTube outro:** user nói "edit video ngắn giới thiệu youtube" → chèn `youtube-outro` 3s cuối, dòng dưới "Channel: Thành Vũ Đức".
 9. **Idle animation = CSS @keyframes** (không gsap repeat:-1). Determinism: không Date.now/Math.random.
@@ -43,8 +45,9 @@ Cắt bỏ: lead-in im lặng, **dead-air** (gap > ~0.7s không cần thiết), 
 
 ## 2. Hai hướng motion (đã duyệt)
 
-- **COSMIC** — vũ trụ xoay vòng: orbital rings (CSS spin nhiều tốc độ) + particle stardust + solar flare burst + nebula gradient. Font Be Vietnam Pro 800.
-- **EDITORIAL** — tạp chí: Playfair Display italic + số chương stroke-only + hairline draw + dấu nháy đôi oversized + stagger by line. Font Playfair + JetBrains Mono.
+- **IVORY** (mặc định cho daily news) — nền kem, card trắng nổi, pastel + plum. Bộ 10 template dọc có sẵn animation ở `templates-vertical-ivory/`. Sinh scene bằng `tools/template-to-scene.mjs`. Motion theo DS: chỉ transform + opacity, ease `cubic-bezier(.22,1,.36,1)`, riêng v01/v02/v07 được overshoot mạnh cho hook 3 giây đầu.
+- **COSMIC** (legacy) — vũ trụ xoay vòng: orbital rings + particle stardust + solar flare burst + nebula gradient. Font Be Vietnam Pro 800.
+- **EDITORIAL** (legacy) — tạp chí: Playfair Display italic + số chương stroke-only + hairline draw. Font Playfair + JetBrains Mono.
 
 Trộn được trong 1 video (vd intro cosmic → giữa editorial → CTA cosmic). 8 mẫu xem nhanh: `templates/_catalog-preview/`. **KHÔNG** dùng HUD/terminal (đã bị loại).
 
@@ -72,7 +75,7 @@ Trộn được trong 1 video (vd intro cosmic → giữa editorial → CTA cosm
 
 §3 ở trên mô tả chế độ mặc định (face dọc, thu giọng thật). 2 biến thể dưới đây đổi pipeline + kiến trúc track.
 
-### No-face dọc (giọng TTS) — mẫu `video-projects/opus-48-daily-khong-face`
+### No-face dọc (giọng TTS) — mẫu `video-projects/daily-ivory-vertical`
 Dùng khi user nói "không mặt người", làm bản tin / video tổng hợp không có người quay.
 - **Bỏ B2–B5** (thu/cắt vấp). Sinh giọng bằng **Gemini 2.5 Flash Preview TTS** (`gemini-2.5-flash-preview-tts`, voice `Algenib`, style phát thanh viên) — key `GEMINI_API_KEY` trong `.env`. Gemini trả **PCM→WAV→mp3** (ffmpeg trong `tts.mjs`). Style/giọng điều khiển bằng câu chỉ đạo natural-language đầu prompt (không có param riêng). **`hyperframes tts` (Kokoro) KHÔNG hỗ trợ tiếng Việt**, đừng dùng.
 - Pipeline: viết `assets/vo-script.txt` (phiên âm tên riêng, vd Contentta→"Còn Ten Ta") → `tts.mjs` → `voice.mp3` → `transcribe.mjs` (**OpenAI Whisper**, key `OPENAI_API_KEY`, word-timing) → `generate-captions.mjs` + `replacements.json` (fix Whisper nghe sai: Claude→"Plot", Anthropic→"Entropic", Contentta→"contenta") → canh `data-start` scene theo segment boundary của transcript. Script mẫu nằm trong `assets/` của project.
@@ -102,7 +105,7 @@ Mỗi scene CẦN: entry whip (y/blur/opacity in), nội dung reveal **khớp l�
 
 Dùng `scripts/generate-captions.mjs <transcript-final.json> compositions/captions.html [replacements.json]`:
 - Chunk theo **từng câu Whisper**, gộp từ lẻ cuối câu vào dòng trước (không mồ côi "này…").
-- Trắng mờ `rgba(250,247,245,0.55)` → sáng `#FAF7F5` theo lời (0.10s). **KHÔNG đỏ, không scale pop.**
+- Ivory: ink `rgba(23,19,13,0.40)` → plum `#4A3AE0` theo lời (0.10s). Orbital: trắng mờ `rgba(250,247,245,0.55)` → `#FAF7F5`. **KHÔNG đỏ, không scale pop.**
 - Be Vietnam Pro 600, 44px, outline 2px stack, bottom 220px. Fade out trước segment kế (SWAP_GUARD).
 
 ## 6. Typography

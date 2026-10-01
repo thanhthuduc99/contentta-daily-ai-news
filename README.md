@@ -26,6 +26,10 @@ Giải bằng ba file:
 
 Sau khi Whisper trả word-timing, `generate-captions.mjs` áp `replacements.json` để map ngược. Giọng đọc đúng, caption hiện đúng.
 
+<img src="docs/images/caption-github-name.jpg" width="300" alt="Frame trong video demo: caption hiện đúng chữ GitHub dù TTS đọc phiên âm">
+
+*Frame thật từ video demo: caption hiện tên thật "GitHub", không phải bản phiên âm TTS đọc.*
+
 Bảng phiên âm có sẵn trong runbook: Claude → "Plot", Anthropic → "Entropic", GitHub → "Gít Hấp", LLM → "Eo Eo Em", API → "A Pi I". Tên mới không có trong bảng thì tự phiên âm theo cách đọc.
 
 ## Vài thứ khác học được khi build
@@ -36,6 +40,10 @@ Bảng phiên âm có sẵn trong runbook: Claude → "Plot", Anthropic → "Ent
 - **Không bịa số.** Số liệu trong caption phải lấy từ nguồn thật, là transcript YouTube hoặc README repo. Không chắc thì kể định tính. Caption sai số là mất uy tín cả video.
 - **Form kể chuyện chọn theo nội dung.** Runbook có bảng map: một sự kiện lớn thì kể leo thang, tool mới thì demo dẫn dắt, so sánh version thì trước sau, tranh cãi thì đối lập. Không ép mọi thứ thành liệt kê 5 ý.
 - **`ffmpeg-static` thay vì ffmpeg hệ thống**, và vendor `gsap.min.js` tại chỗ thay vì CDN. Agent chạy trong môi trường lạ thì hai thứ này hay chết nhất.
+
+<img src="docs/images/scene-real-numbers.jpg" width="300" alt="Frame trong video demo: số token lấy từ README của repo được giới thiệu">
+
+*Frame thật từ video demo: scene số liệu ghi rõ nguồn là repo đang giới thiệu.*
 
 ## Pipeline
 
